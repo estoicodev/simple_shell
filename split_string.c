@@ -1,13 +1,13 @@
 #include "header.h"
 
 /**
- * count_subcommands - The size of words in the string separate by space
+ * count_tokens - The size of words in the string separate by space
  * @str: String
  *
  * Return: The size of words
  * Otherwise, -1
  */
-int count_subcommands(char *str)
+int count_tokens(char *str)
 {
 	int i, count = 0;
 
@@ -40,40 +40,40 @@ int count_subcommands(char *str)
  */
 char **split_string(char *str)
 {
-	int i, ar_len;
-	char *piece, *copy;
-	char **array;
+	int ar_len, i = 0;
+	char *copy, *token;
+	char **toks;
 
-	ar_len = count_subcommands(str);
+	ar_len = count_tokens(str);
 
-	array = malloc(ar_len * sizeof(char *) + 1);
-	if (array == NULL)
+	toks = malloc((ar_len + 1) * sizeof(char *));
+	if (toks == NULL)
 		return (NULL);
 
 	copy = _strdup(str);
 	if (copy == NULL)
 	{
-		free(array);
+		free(toks);
 		return (NULL);
 	}
 
-	piece = strtok(copy, " ");
-	for (i = 0; i < ar_len; i++)
+	token = strtok(copy, " ");
+	while (token != NULL)
 	{
-		array[i] = _strdup(piece);
-		if (array[i] == NULL)
+		toks[i] = _strdup(token);
+		if (toks[i] == NULL)
 		{
-			ar_len = i + 1;
-			for (i = 0; i < ar_len; i++)
-				free(array[i]);
-			free(array);
+			ar_len = i;
+			for (i = 0; i <= ar_len; i++)
+				free(toks[i]);
+			free(toks);
 			return (NULL);
 		}
-		piece = strtok(NULL, " ");
+		token = strtok(NULL, " ");
+		i++;
 	}
-	array[i] = NULL;
-	free(piece);
+	toks[i] = token;
 	free(copy);
 
-	return (array);
+	return (toks);
 }

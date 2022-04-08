@@ -9,39 +9,26 @@ int main(void)
 {
 	while (1)
 	{
+		pid_t pid;
 		char *line = NULL;
 		size_t n = 0;
-		ssize_t r;
-		pid_t pid;
-		int rexc;
-		char *cmd;
-		char **ar_tokens;
 
-		write(1, "$ ", 2);
-		r = getline(&line, &n, stdin);
-		if (r == -1)
+		write(STDOUT_FILENO, "$ ", 2);
+		if (getline(&line, &n, stdin) == -1)
 			return (1);
+		last_newline_to_null(line);
 
-		if (line[r - 1] == '\n')
-			line[r - 1] = '\0';
-
-		if (strcmp(line, "exit") == 0)
-		{
-			free(line);
+		if (write_exit(line) == 1)
 			break;
-		}
 
-		if (strcmp(line, "\0") != 0)
+		if (line[0] != '\0')
 		{
 			pid = fork();
 			if (pid == 0)
 			{
-				ar_tokens = split_string(line);
-				cmd = _strdup("/bin/");
-				_strcat(cmd, ar_tokens[0]);
-				rexc = execve(cmd, ar_tokens, NULL);
-				if (rexc == -1)
+				if (execute_basic_command(line) == -1)
 					perror("Could not execute rexc");
+				break;
 			}
 			else
 				wait(NULL);
