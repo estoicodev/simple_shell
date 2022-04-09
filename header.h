@@ -43,6 +43,7 @@ int _strcmp(char *s1, char *s2);
 /* Main functions */
 char *get_cmd();
 char **split_string(char *str);
+int execution (char **ar);
 
 /* Helper functions */
 int write_exit(char *command);
@@ -52,7 +53,7 @@ int count_subcommands(char *str);
 void free_ar(char **ar);
 
 /* Execution functions*/
-int execute_basic_command(char *command);
+int execute_basic_command(char **ar);
 
 /* Errors */
 char *error_interactive(struct argvs *av, struct token *tk);
