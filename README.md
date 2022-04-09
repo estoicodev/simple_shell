@@ -1,8 +1,7 @@
--
+<h1 align="center" dir="auto"><a id="" class="anchor" aria-hidden="true" href="#"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>
+<a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/df39b812688dc0ef3cd5c591489f9d0b7ae6db126c1ed3845f4bd3c7e957c139/68747470733a2f2f6173736574732e776562736974652d66696c65732e636f6d2f3631303533313536343461323666373739313261316164612f3631303534306538623463643639363937393466653637335f486f6c626572746f6e5f5363686f6f6c5f6c6f676f2d30342d30342e737667"><img src="https://camo.githubusercontent.com/df39b812688dc0ef3cd5c591489f9d0b7ae6db126c1ed3845f4bd3c7e957c139/68747470733a2f2f6173736574732e776562736974652d66696c65732e636f6d2f3631303533313536343461323666373739313261316164612f3631303534306538623463643639363937393466653637335f486f6c626572746f6e5f5363686f6f6c5f6c6f676f2d30342d30342e737667" height="75%" width="65%" data-canonical-src="https://assets.website-files.com/6105315644a26f77912a1ada/610540e8b4cd6969794fe673_Holberton_School_logo-04-04.svg" style="max-width: 100%;"></a>
+</h1>
 
-![](https://camo.githubusercontent.com/df39b812688dc0ef3cd5c591489f9d0b7ae6db126c1ed3845f4bd3c7e957c139/68747470733a2f2f6173736574732e776562736974652d66696c65732e636f6d2f3631303533313536343461323666373739313261316164612f3631303534306538623463643639363937393466653637335f486f6c626572746f6e5f5363686f6f6c5f6c6f676f2d30342d30342e737667)
-
--
 ### Sinópsis
 
 A shell provides an interface to the Unix system. It collects information and runs programs based on input. When a program finishes running, it displays the output of that program.
@@ -14,7 +13,7 @@ Shell is an environment in which we can run our commands, programs, and shell sc
 This project is a simple version of the Linux Shell, it applies the basics and has limited functionality. It has been developed using the C programming language.
 
 
-<hr>
+
 
 
 ### General considerations
@@ -60,7 +59,7 @@ This project is a simple version of the Linux Shell, it applies the basics and h
 - `write` (man 2 write)
 
 
-------------
+
 
 
 ### Compilation
@@ -95,8 +94,6 @@ hsh main.c shell.c test_ls_2
 hsh main.c shell.c test_ls_2
 $
 ```
-
-------------
 
 
 ### Authors
