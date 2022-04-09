@@ -10,8 +10,12 @@ A shell provides an interface to the Unix system. It collects information and ru
 Shell is an environment in which we can run our commands, programs, and shell scripts. There are different flavors of shell, just like there are different flavors of operating systems. Each type of shell has its own set of recognized commands and functions.
 
 ### Description
+
 This project is a simple version of the Linux Shell, it applies the basics and has limited functionality. It has been developed using the C programming language.
+
+
 ------------
+
 
 ### General considerations
 
@@ -55,7 +59,9 @@ This project is a simple version of the Linux Shell, it applies the basics and h
 - `wait4` (man 2 wait4)
 - `write` (man 2 write)
 
+
 ------------
+
 
 ### Compilation
 
@@ -89,7 +95,9 @@ hsh main.c shell.c test_ls_2
 hsh main.c shell.c test_ls_2
 $
 ```
+
 ------------
+
 
 ### Authors
 - [Agustin Espinoza](https://github.com/tinespinosaa "Agustin Espinoza")
