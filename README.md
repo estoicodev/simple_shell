@@ -11,6 +11,7 @@ Shell is an environment in which we can run our commands, programs, and shell sc
 
 ### Description
 This project is a simple version of the Linux Shell, it applies the basics and has limited functionality. It has been developed using the C programming language.
+------------
 
 ### General considerations
 
@@ -54,6 +55,8 @@ This project is a simple version of the Linux Shell, it applies the basics and h
 - `wait4` (man 2 wait4)
 - `write` (man 2 write)
 
+------------
+
 ### Compilation
 
 simple_shell will be compiled this way:
@@ -86,6 +89,7 @@ hsh main.c shell.c test_ls_2
 hsh main.c shell.c test_ls_2
 $
 ```
+------------
 
 ### Authors
 - [Agustin Espinoza](https://github.com/tinespinosaa "Agustin Espinoza")
