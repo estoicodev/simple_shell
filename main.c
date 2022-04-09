@@ -2,10 +2,11 @@
 
 /**
  * main - main function
- *
+ * @ac: ...
+ * @av: arguments of the programm
  * Return: 0 is success, Otherwise 1
  */
-int main(void)
+int main(int ac __attribute__ ((unused)), char *av[])
 {
 	while (1)
 	{
@@ -13,27 +14,39 @@ int main(void)
 		char *line = NULL;
 		size_t n = 0;
 
-		write(STDOUT_FILENO, "$ ", 2);
-		if (getline(&line, &n, stdin) == -1)
-			return (1);
-		last_newline_to_null(line);
-
-		if (write_exit(line) == 1)
-			break;
-
-		if (line[0] != '\0')
+		if (isatty(STDIN_FILENO) == 1)
 		{
+			write(STDOUT_FILENO, "$ ", 2);
+			if (getline(&line, &n, stdin) == EOF)
+			{
+				free(line);
+				write(STDOUT_FILENO, "\n", 1);
+				break;
+			}
+
+			if (write_exit(line) == 1)
+			{
+				free(line);
+				break;
+			}
+
+			if (_strlen(line) == 1)
+			{
+				free(line);
+				continue;
+			}
+
 			pid = fork();
 			if (pid == 0)
 			{
-				if (execute_basic_command(line) == -1)
-					perror("Could not execute rexc");
+				if (execute_basic_command(line) == 0)
+					perror(av[0]);
 				break;
 			}
 			else
 				wait(NULL);
+			free(line);
 		}
-		free(line);
 	}
 	return (0);
 }

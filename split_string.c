@@ -57,7 +57,7 @@ char **split_string(char *str)
 		return (NULL);
 	}
 
-	token = strtok(copy, " ");
+	token = strtok(copy, " \n");
 	while (token != NULL)
 	{
 		toks[i] = _strdup(token);
@@ -69,7 +69,7 @@ char **split_string(char *str)
 			free(toks);
 			return (NULL);
 		}
-		token = strtok(NULL, " ");
+		token = strtok(NULL, " \n");
 		i++;
 	}
 	toks[i] = token;

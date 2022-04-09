@@ -8,26 +8,21 @@
  */
 int write_exit(char *command)
 {
-	char *token = strtok(command, " ");
+	char *copy;
+	char *token;
 
-	if (!token)
+	if (!command)
 		return (0);
 
-	if (_strcmp(token, "exit") == 0 && _strlen(token) == 4)
+	copy = _strdup(command);
+	token = strtok(copy, " ");
+
+	if (_strcmp(token, "exit\n") == 0 && _strlen(token) == 5)
 	{
-		free(command);
+		free(copy);
 		return (1);
 	}
+	free(copy);
+
 	return (0);
-}
-/**
- * last_newline_to_null - function
- * @command: ...
- *
- * Return: void
- */
-void last_newline_to_null(char *command)
-{
-	if (command[_strlen(command) - 1] == '\n')
-		command[_strlen(command) - 1] = '\0';
 }
