@@ -14,7 +14,7 @@ Shell is an environment in which we can run our commands, programs, and shell sc
 This project is a simple version of the Linux Shell, it applies the basics and has limited functionality. It has been developed using the C programming language.
 
 
-------------
+<hr>
 
 
 ### General considerations
