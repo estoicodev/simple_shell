@@ -51,6 +51,7 @@ int _strncmp(char *s, char *t, int n);
 /* Main functions */
 char *get_cmd();
 char **split_string(char *str);
+int execution (char **ar);
 
 /* Helper functions */
 int write_exit(char *command);

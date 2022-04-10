@@ -10,9 +10,10 @@ int main(int ac __attribute__ ((unused)), char *av[])
 {
 	while (1)
 	{
-		pid_t pid;
 		char *line = NULL;
 		size_t n = 0;
+		char **ar;
+		pid_t pid;
 
 		if (isatty(STDIN_FILENO) == 1)
 		{
@@ -36,16 +37,29 @@ int main(int ac __attribute__ ((unused)), char *av[])
 				continue;
 			}
 
+			ar = split_string(line);
+
+			/* Aqui falta el validator */
+
 			pid = fork();
 			if (pid == 0)
 			{
-				if (execute_basic_command(line) == 0)
+				if (execute_basic_command(ar) == 0)
+				{
+					free(line);
 					perror(av[0]);
-				break;
+					break;
+				}
 			}
 			else
 				wait(NULL);
+			free_ar(ar);
 			free(line);
+
+		}
+		else
+		{
+			/* Aqui se maneja el modo no interactivo */
 		}
 	}
 	return (0);
