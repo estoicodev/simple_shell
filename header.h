@@ -7,6 +7,8 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+extern char **environ;
+
 /**
  * struct argvs - Define a structre for argvs in programm execution
  *
@@ -39,6 +41,12 @@ char *_strdup(char *str);
 char *_strcpy(char *dest, char *src);
 char *_strcat(char *dest, char *src);
 int _strcmp(char *s1, char *s2);
+char *getenv_PATH();
+void add_backslash(char **paths);
+char **get_PATHS();
+char **tokalloc(char *buffer, char *delim, int ctok);
+char **_strtok_all(char *buffer, char *delimiter);
+int _strncmp(char *s, char *t, int n);
 
 /* Main functions */
 char *get_cmd();
@@ -52,7 +60,7 @@ int count_subcommands(char *str);
 void free_ar(char **ar);
 
 /* Execution functions*/
-int execute_basic_command(char *command);
+int execute_basic_command(char **ar);
 
 /* Errors */
 char *error_interactive(struct argvs *av, struct token *tk);
