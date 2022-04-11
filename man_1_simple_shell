@@ -1,13 +1,13 @@
 .\" Manpage for hsh Project - Holberton Simple Shell 2022
-.TH  man 1 "5 April 2022" "1.0" "holberton Simple Shell (hsh) man page"
+.TH  hsh 1 "5 April 2022" "1.0" "Holberton Simple Shell (hsh) man page"
 
 .SH NAME
-hsh - simple shell, a simple shell command language interpreter
+hsh - A simple shell command language interpreter
 
 .SH PROLOG
 This manual page of a Holberton Simple Shell (hsh) may differ from the standard Shell interfase (sh) of Linux
 
-.SH SYSNOPSIS
+.SH SYNOPSIS
 The shell is executed by typing ./hsh
 
 .SH DESCRIPTION
@@ -56,33 +56,28 @@ None
 .SH APPLICATION USAGE
 shs can be executed int two modes:
 
-.B *Interactive mode:
-.br ./hsh
+.B *Interactive mode
 
-.B *Non interactive mode:
-.br echo "/bin/ls" | ./hsh
+.B *Non interactive mode
 
 .SH EXAMPLES
 .B 1. Non interactice mode example:
-$ echo "/bin/ls" | ./hsh
+
+.B echo "/bin/ls" | ./hsh
+
 hsh main.c shell.c test_ls_2
-$
-$ cat test_ls_2
-/bin/ls
-/bin/ls
-$
-$ cat test_ls_2 | ./hsh
+
+.B cat test_ls_2 | ./hsh
+
 hsh main.c shell.c test_ls_2
+
 hsh main.c shell.c test_ls_2
-$
 
 2. Interactice mode example:
-$ ./hsh
-($) /bin/ls
-hsh main.c shell.c
-($)
-($) exit
-$
+
+.B $ /bin/ls
+
+hsh main.c shell.c test_ls_2
 
 .SH FUTURE DIRECTIONS
 None
