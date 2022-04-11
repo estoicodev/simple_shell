@@ -34,11 +34,12 @@ int count_tokens(char *str)
 /**
  * split_string - split string by space and returns an array of each word
  * @str: String
+ * @delim: Delimitator
  *
  * Return: Array of each word of the string,
  * Otherwise, NULL
  */
-char **split_string(char *str)
+char **split_string(char *str, char *delim)
 {
 	int ar_len, i = 0;
 	char *copy, *token;
@@ -57,7 +58,7 @@ char **split_string(char *str)
 		return (NULL);
 	}
 
-	token = strtok(copy, " \n");
+	token = strtok(copy, delim);
 	while (token != NULL)
 	{
 		toks[i] = _strdup(token);
@@ -69,7 +70,7 @@ char **split_string(char *str)
 			free(toks);
 			return (NULL);
 		}
-		token = strtok(NULL, " \n");
+		token = strtok(NULL, delim);
 		i++;
 	}
 	toks[i] = token;

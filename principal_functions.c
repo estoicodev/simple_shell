@@ -1,6 +1,54 @@
 #include "header.h"
 
 /**
+ * prompt - desc
+ * Return: void
+ */
+void prompt(void)
+{
+	char *pr = "$ ";
+
+	if (isatty(STDIN_FILENO))
+		write(STDOUT_FILENO, pr, _strlen(pr));
+}
+
+/**
+ * get_input - desc
+ * Return: Input string
+ */
+char *get_input(void)
+{
+	char *line = NULL;
+	ssize_t n;
+	size_t size = 0;
+
+	n = getline(&line, &size, stdin);
+	if (line == NULL)
+	{
+		perror("Error allocating memory for buffer");
+		return (0);
+	}
+	else if (n == 1)
+	{
+		free(line);
+		return (NULL);
+	}
+	else if (n == EOF)
+	{
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "\n", 1);
+		free(line);
+		exit(0);
+	}
+	else if (write_exit(line) == 1)
+	{
+		free(line);
+		exit(0);
+	}
+	return (line);
+}
+
+/**
  * validator - desc
  * @ar: ...
  * Return: ...
@@ -12,25 +60,4 @@ int validator(char **ar)
 	/* Aqui va la validacion del env (y mas si es necesario) */
 
 	return (0);
-}
-
-/**
- * execution - desc
- * @ar: ...
- * Return: ...
- */
-int execution(char **ar)
-{
-	pid_t pid;
-
-	pid = fork();
-	if (pid == 0)
-	{
-		if (execute_basic_command(ar) == 0)
-			return (0);
-	}
-	else
-		wait(NULL);
-
-	return (1);
 }
