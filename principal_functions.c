@@ -13,7 +13,7 @@ int validation(char **ar, char **paths)
 
         for (i = 0; paths[i] != NULL; i++)
         {
-                abspath_concat = _strcat(paths[i], ar[0]);
+                abspath_concat = str_concat(paths[i], ar[0]);
 
                 if (access(abspath_concat, X_OK) != -1)
                 {
