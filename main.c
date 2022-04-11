@@ -24,7 +24,8 @@ int main(int ac __attribute__ ((unused)), char *av[])
 
 		ar = split_string(line, " \t\n");
 
-		compare_builtins(ar, count, line);
+		if (compare_builtins(ar, line) == 1)
+			count++;
 
 		if (_strcmp(ar[0], "env") != 0)
 		{

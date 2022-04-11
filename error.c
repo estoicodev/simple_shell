@@ -16,8 +16,7 @@ int print_error(char *programm, int count, char *command)
 	write(STDERR_FILENO, number, _strlen(number));
 	write(STDERR_FILENO, ": ", 2);
 	write(STDERR_FILENO, command, _strlen(command));
-	write(STDERR_FILENO, ": ", 2);
-	write(STDERR_FILENO, "not found\n", 10);
+	perror(" ");
 
 	return (0);
 }

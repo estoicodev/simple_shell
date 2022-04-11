@@ -46,11 +46,10 @@ char *get_input(void)
 /**
  * compare_builtins - desc
  * @ar: ...
- * @count: ...
  * @line: ...
- * Return: void
+ * Return: 1 (Find a success compare)
  */
-void compare_builtins(char **ar, int count, char *line)
+int compare_builtins(char **ar, char *line)
 {
 	if (write_exit(ar) == 1)
 	{
@@ -58,12 +57,13 @@ void compare_builtins(char **ar, int count, char *line)
 		free(line);
 		exit(0);
 	}
-	else if (write_env(ar) == 1)
+	if (write_env(ar) == 1)
 	{
-		count++;
 		fprintenv(environ);
+		return (1);
 	}
 
+	return (0);
 }
 
 /**

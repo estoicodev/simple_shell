@@ -23,7 +23,7 @@ char *_itoa(int num, int base);
 /* Main functions */
 void prompt(void);
 char *get_input(void);
-void compare_builtins(char **ar, int count, char *line);
+int compare_builtins(char **ar, char *line);
 int handle_child_process(char **ar, char **av, int cnt, char *line);
 
 /* Helper functions */
