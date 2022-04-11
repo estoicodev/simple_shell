@@ -23,13 +23,14 @@ char *_itoa(int num, int base);
 /* Main functions */
 void prompt(void);
 char *get_input(void);
-int handle_child_process(char **ar, char **av, int cnt);
+void compare_builtins(char **ar, int count, char *line);
+int handle_child_process(char **ar, char **av, int cnt, char *line);
 
 /* Helper functions */
 char **split_string(char *str, char *delim);
 char **tokalloc(char *buffer, char *delim, int ctok);
 char **_strtok_all(char *buffer, char *delimiter);
-int write_exit(char *command);
+int write_exit(char **ar);
 int write_spaces(char *command);
 int write_env(char **ar);
 int count_subcommands(char *str);

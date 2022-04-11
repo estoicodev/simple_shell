@@ -24,16 +24,12 @@ int main(int ac __attribute__ ((unused)), char *av[])
 
 		ar = split_string(line, " \t\n");
 
-		if (write_env(ar) == 1)
-		{
-			count++;
-			fprintenv(environ);
-		}
+		compare_builtins(ar, count, line);
 
 		if (_strcmp(ar[0], "env") != 0)
 		{
 			count++;
-			handle_child_process(ar, av, count);
+			handle_child_process(ar, av, count, line);
 		}
 		free_ar(ar);
 		free(line);

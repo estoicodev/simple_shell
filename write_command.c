@@ -21,27 +21,17 @@ int write_spaces(char *command)
 
 /**
  * write_exit - function
- * @command: ...
+ * @ar: ...
  *
  * Return: 1 is success, Otherwise 0
  */
-int write_exit(char *command)
+int write_exit(char **ar)
 {
-	char *copy;
-	char *token;
-
-	if (!command)
+	if (!ar)
 		return (0);
 
-	copy = _strdup(command);
-	token = strtok(copy, " \n");
-
-	if (_strcmp(token, "exit") == 0 && _strlen(token) == 4)
-	{
-		free(copy);
+	if ((_strcmp(ar[0], "exit") == 0) && ar[1] == NULL)
 		return (1);
-	}
-	free(copy);
 
 	return (0);
 }
@@ -54,6 +44,9 @@ int write_exit(char *command)
  */
 int write_env(char **ar)
 {
+	if (!ar)
+		return (0);
+
 	if ((_strcmp(ar[0], "env") == 0) && ar[1] == NULL)
 		return (1);
 

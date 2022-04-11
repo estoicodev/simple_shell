@@ -40,12 +40,30 @@ char *get_input(void)
 		free(line);
 		exit(0);
 	}
-	else if (write_exit(line) == 1)
+	return (line);
+}
+
+/**
+ * compare_builtins - desc
+ * @ar: ...
+ * @count: ...
+ * @line: ...
+ * Return: void
+ */
+void compare_builtins(char **ar, int count, char *line)
+{
+	if (write_exit(ar) == 1)
 	{
+		free_ar(ar);
 		free(line);
 		exit(0);
 	}
-	return (line);
+	else if (write_env(ar) == 1)
+	{
+		count++;
+		fprintenv(environ);
+	}
+
 }
 
 /**
@@ -53,9 +71,10 @@ char *get_input(void)
  * @ar: ...
  * @av: ...
  * @cnt: ...
+ * @line: ...
  * Return: 1 (Success). It fails -1
  */
-int handle_child_process(char **ar, char **av, int cnt)
+int handle_child_process(char **ar, char **av, int cnt, char *line)
 {
 	pid_t pid;
 
@@ -67,6 +86,7 @@ int handle_child_process(char **ar, char **av, int cnt)
 	{
 		perror(av[0]);
 		free_ar(ar);
+		free(line);
 		exit(1);
 	}
 	else if (pid == 0)
@@ -75,9 +95,11 @@ int handle_child_process(char **ar, char **av, int cnt)
 		{
 			print_error(av[0], cnt, ar[0]);
 			free_ar(ar);
+			free(line);
 			exit(1);
 		}
 		free_ar(ar);
+		free(line);
 		exit(0);
 	}
 	else
