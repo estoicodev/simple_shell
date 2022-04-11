@@ -20,7 +20,6 @@ void free_ar(char **ar)
 	}
 }
 
-#include "header.h"
 
 /**
  * tokalloc - allocate memory space to the new array of tokens
