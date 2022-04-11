@@ -30,10 +30,9 @@ int main(int ac __attribute__ ((unused)), char *av[])
 		if (_strcmp(ar[0], "env") != 0)
 		{
 			count++;
+			validation(ar, get_PATHS());
 			handle_child_process(ar, av, count, line);
 		}
-		free_ar(ar);
-		free(line);
 	}
 	return (0);
 }

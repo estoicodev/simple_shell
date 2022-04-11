@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 #include <unistd.h>
 
 extern char **environ;
@@ -24,6 +25,7 @@ char *_itoa(int num, int base);
 void prompt(void);
 char *get_input(void);
 int compare_builtins(char **ar, char *line);
+int validation(char **ar, char **paths);
 int handle_child_process(char **ar, char **av, int cnt, char *line);
 
 /* Helper functions */
