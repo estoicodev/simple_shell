@@ -1,5 +1,5 @@
 .\" Manpage for hsh Project - Holberton Simple Shell 2022
-.TH  hsh 1 "5 April 2022" "1.0" "Holberton Simple Shell (hsh) man page"
+.TH  HSH 1 "5 April 2022" "1.0" "Holberton Simple Shell (hsh) man page"
 
 .SH NAME
 hsh - A simple shell command language interpreter
