@@ -8,36 +8,32 @@
  */
 int main(int ac __attribute__ ((unused)), char *av[])
 {
+	char *line = NULL, **ar;
+	int count = 0;
+
 	while (1)
 	{
-		char *line = NULL, **ar;
-		pid_t pid;
-
 		prompt();
 
 		line = get_input();
 		if (!line)
+		{
+			count++;
 			continue;
+		}
 
-		ar = split_string(line, " \n");
+		ar = split_string(line, " \t\n");
 
 		if (write_env(ar) == 1)
+		{
+			count++;
 			fprintenv(environ);
+		}
 
 		if (_strcmp(ar[0], "env") != 0)
 		{
-			pid = fork();
-			if (pid == 0)
-			{
-				if (execute_basic_command(ar) == 0)
-				{
-					free(line);
-					perror(av[0]);
-					break;
-				}
-			}
-			else
-				wait(NULL);
+			count++;
+			handle_child_process(ar, av, count);
 		}
 		free_ar(ar);
 		free(line);

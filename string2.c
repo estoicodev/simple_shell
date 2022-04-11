@@ -29,26 +29,6 @@ void _puts(char *str)
 }
 
 /**
- * _strchr - desc
- * @s: desc
- * @c: desc
- *
- * Return: desc
- */
-char *_strchr(char *s, char c)
-{
-	while (*s != c)
-	{
-		if (!*s++)
-		{
-			return (NULL);
-		}
-	}
-
-	return (s);
-}
-
-/**
  *  _strncat - concatenates two strings with n bytes of src.
  * @dest: First string
  * @src: Second string (concatenate to dest)
@@ -97,4 +77,38 @@ int _strncmp(char *s, char *t, int n)
 	s2 = NULL;
 
 	return (dif);
+}
+
+/**
+ * _itoa - integer to ascii
+ * @num: num
+ * @base: base
+ *
+ * Return: char
+ * Reference: https://gist.github.com/narnat/95733cd0ad7bfac0d90697292914c407
+ **/
+char *_itoa(int num, int base)
+{
+	static char *array = "0123456789abcdef";
+	static char buffer[50];
+	char sign = 0;
+	char *ptr;
+	unsigned long n = num;
+
+	if (num < 0)
+	{
+		n = -num;
+		sign = '-';
+	}
+	ptr = &buffer[49];
+	*ptr = '\0';
+
+	do      {
+		*--ptr = array[n % base];
+		n /= base;
+	} while (n != 0);
+
+	if (sign)
+		*--ptr = sign;
+	return (ptr);
 }

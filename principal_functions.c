@@ -49,15 +49,41 @@ char *get_input(void)
 }
 
 /**
- * validator - desc
+ * handle_child_process - desc
  * @ar: ...
- * Return: ...
+ * @av: ...
+ * @cnt: ...
+ * Return: 1 (Success). It fails -1
  */
-int validator(char **ar)
+int handle_child_process(char **ar, char **av, int cnt)
 {
-	printf("To use the variable: %s\n", ar[0]);
+	pid_t pid;
 
-	/* Aqui va la validacion del env (y mas si es necesario) */
+	if (ar == NULL)
+		return (-1);
 
-	return (0);
+	pid = fork();
+	if (pid < 0)
+	{
+		perror(av[0]);
+		free_ar(ar);
+		exit(1);
+	}
+	else if (pid == 0)
+	{
+		if (execve(ar[0], ar, environ) == -1)
+		{
+			print_error(av[0], cnt, ar[0]);
+			free_ar(ar);
+			exit(1);
+		}
+		free_ar(ar);
+		exit(0);
+	}
+	else
+	{
+		wait(NULL);
+	}
+
+	return (1);
 }
