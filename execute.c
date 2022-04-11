@@ -12,12 +12,13 @@ int execute_basic_command(char **ar)
 	if (ar == NULL)
 		return (0);
 
-	res = execve(ar[0], ar, NULL);
-
-	free_ar(ar);
+	res = execve(ar[0], ar, environ);
 
 	if (res == -1)
+	{
+		free_ar(ar);
 		return (0);
-
+	}
+	free_ar(ar);
 	return (1);
 }
