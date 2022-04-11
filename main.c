@@ -4,15 +4,13 @@
  * main - main function
  * @ac: ...
  * @av: arguments of the programm
- * @env: Environment variables
  * Return: 0 is success, Otherwise 1
  */
 int main(int ac __attribute__ ((unused)), char *av[])
 {
 	while (1)
 	{
-		char *line = NULL;
-		char **ar;
+		char *line = NULL, **ar;
 		pid_t pid;
 
 		prompt();
