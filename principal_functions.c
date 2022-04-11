@@ -20,6 +20,7 @@ int validation(char **ar, char **paths)
                         ar[0] = abspath_concat;
                         return (1);
                 }
+		free(abspath_concat);
         }
 
         return (0);

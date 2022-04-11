@@ -33,6 +33,8 @@ int main(int ac __attribute__ ((unused)), char *av[])
 			validation(ar, get_PATHS());
 			handle_child_process(ar, av, count, line);
 		}
+		free(line);
+		free_ar(ar);
 	}
 	return (0);
 }

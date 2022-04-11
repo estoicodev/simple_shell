@@ -1,7 +1,7 @@
 #include "header.h"
 
 /**
- * count_tokens - The size of words in the string separate by space
+ * count_tokens - The size of words in the string separate by space or tab
  * @str: String
  *
  * Return: The size of words
@@ -13,14 +13,14 @@ int count_tokens(char *str)
 
 	for (i = 0; *str; i++)
 	{
-		if (i == 0 && *str == ' ')
+		if ((i == 0 && *str == ' ') || (i == 0 && *str == '\t'))
 		{
-			while (*(str + 1) == ' ')
+			while (*(str + 1) == ' ' || *(str + 1) == '\t')
 				str++;
 		}
-		else if (*str == ' ')
+		else if (*str == ' ' || *str == '\t')
 		{
-			while (*(str + 1) == ' ')
+			while (*(str + 1) == ' ' || *(str + 1) == '\t')
 				str++;
 			count++;
 		}
