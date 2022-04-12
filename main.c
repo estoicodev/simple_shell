@@ -22,7 +22,7 @@ int main(int ac __attribute__ ((unused)), char *av[])
 			continue;
 		}
 
-		ar = split_string(line, " \t\n");
+		ar = split_string(line, " \t\n\r\a");
 
 		if (compare_builtins(ar, line) == 1)
 			count++;

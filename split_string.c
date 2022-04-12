@@ -1,7 +1,24 @@
 #include "header.h"
 
 /**
- * count_tokens - The size of words in the string separate by space or tab
+ * compare_delim - Compare the delimiters "\t\n\r\a"
+ * @str: String
+ *
+ * Return: 1 Success
+ * Otherwise, 0
+ */
+int compare_delim(char *str)
+{
+	if (*str == ' ' || *str == '\t')
+		return (1);
+
+	if (*str == '\r' || *str == '\a')
+		return (1);
+
+	return (0);
+}
+/**
+ * count_tokens - The size of words in the string separate by space or tab in
  * @str: String
  *
  * Return: The size of words
@@ -13,14 +30,16 @@ int count_tokens(char *str)
 
 	for (i = 0; *str; i++)
 	{
-		if ((i == 0 && *str == ' ') || (i == 0 && *str == '\t'))
+		/* Esto es para los caracteres especiales al principio */
+		if ((i == 0 && compare_delim(str) == 1))
 		{
-			while (*(str + 1) == ' ' || *(str + 1) == '\t')
+			while (compare_delim(str + 1) == 1)
 				str++;
 		}
-		else if (*str == ' ' || *str == '\t')
+
+		if (compare_delim(str + 1) == 1)
 		{
-			while (*(str + 1) == ' ' || *(str + 1) == '\t')
+			while (compare_delim(str + 1) == 1)
 				str++;
 			count++;
 		}
@@ -28,8 +47,24 @@ int count_tokens(char *str)
 	}
 	count++;
 
+	/* Esto es para validar si tiene caracter especial al final */
+	if (compare_delim(str - 1) == 1)
+		count--;
+
 	return (count);
 }
+
+/**
+int main(void)
+{
+	char *str = "ls";
+	int c = count_tokens(str);
+
+	printf("N° Tokens: %d\n", c);
+
+	return (0);
+}
+*/
 
 /**
  * split_string - split string by space and returns an array of each word
