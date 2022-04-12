@@ -8,22 +8,22 @@
  */
 int validation(char **ar, char **paths)
 {
-        int i;
-        char *abspath_concat = "";
+	int i;
+	char *abspath_concat = "";
 
-        for (i = 0; paths[i] != NULL; i++)
-        {
-                abspath_concat = _strcat(paths[i], ar[0]);
+	for (i = 0; paths[i] != NULL; i++)
+	{
+		abspath_concat = _strcat(paths[i], ar[0]);
 
-                if (access(abspath_concat, X_OK) != -1)
-                {
-                        ar[0] = abspath_concat;
-                        return (1);
-                }
+		if (access(abspath_concat, X_OK) != -1)
+		{
+			ar[0] = abspath_concat;
+			return (1);
+		}
 		free(abspath_concat);
-        }
+	}
 
-        return (0);
+	return (0);
 }
 
 /**
