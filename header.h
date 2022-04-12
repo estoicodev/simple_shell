@@ -14,6 +14,7 @@ extern char **environ;
 int _strlen(char *s);
 char *_strdup(char *str);
 char *_strcpy(char *dest, char *src);
+char *str_concat(char *s1, char *s2);
 char *_strcat(char *dest, char *src);
 int _strcmp(char *s1, char *s2);
 int _strncmp(char *s, char *t, int n);
@@ -43,16 +44,10 @@ char *getenv_PATH(void);
 char **get_PATHS(void);
 void add_backslash(char **paths);
 
-/* Execution functions*/
-int execute_basic_commands(char **ar);
-
 /* Built-ins */
 void fprintenv(char **env);
 
 /* Handle Errors */
 int print_error(char *programm, int count, char *command);
-
-/* Debug */
-void debug(char *line, char **ar);
 
 #endif
