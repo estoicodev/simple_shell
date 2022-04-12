@@ -16,7 +16,7 @@ int main(int ac __attribute__ ((unused)), char *av[])
 		prompt();
 
 		line = get_input();
-		if (!line)
+		if (line == NULL)
 		{
 			count++;
 			continue;

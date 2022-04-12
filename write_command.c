@@ -10,11 +10,13 @@ int write_spaces(char *command)
 {
 	int i;
 
-	for (i = 0; command[i] == ' ' && command[i + 1] == ' '; i++)
+	for (i = 0; command[i] == ' '; i++)
 	{}
 
-	if (!command[i] && command[i + 1] == '\n')
+	if (command[i] == '\n')
+	{
 		return (1);
+	}
 
 	return (0);
 }

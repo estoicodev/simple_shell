@@ -67,6 +67,12 @@ char *get_input(void)
 		free(line);
 		exit(0);
 	}
+	else if (write_spaces(line) == 1)
+	{
+		free(line);
+		return (NULL);
+	}
+
 	return (line);
 }
 
