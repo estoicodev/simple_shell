@@ -9,10 +9,11 @@
 int validation(char **ar, char **paths)
 {
 	int i;
-	char *abspath_concat = "";
+	char *abspath_concat;
 
 	for (i = 0; paths[i] != NULL; i++)
 	{
+		abspath_concat = "";
 		abspath_concat = str_concat(paths[i], ar[0]);
 
 		if (access(abspath_concat, X_OK) != -1)
@@ -93,6 +94,7 @@ int compare_builtins(char **ar, char *line)
 	if (write_env(ar) == 1)
 	{
 		fprintenv(environ);
+		free(line);
 		return (1);
 	}
 
@@ -103,13 +105,12 @@ int compare_builtins(char **ar, char *line)
  * handle_child_process - desc
  * @ar: ...
  * @av: ...
- * @cnt: ...
- * @line: ...
  * Return: 1 (Success). It fails -1
  */
-int handle_child_process(char **ar, char **av, int cnt, char *line)
+int handle_child_process(char **ar, char **av)
 {
 	pid_t pid;
+	int sig = 0;
 
 	if (ar == NULL)
 		return (-1);
@@ -119,25 +120,22 @@ int handle_child_process(char **ar, char **av, int cnt, char *line)
 	{
 		perror(av[0]);
 		free_ar(ar);
-		free(line);
 		exit(1);
 	}
 	else if (pid == 0)
 	{
 		if (execve(ar[0], ar, environ) == -1)
 		{
-			print_error(av[0], cnt, ar[0]);
 			free_ar(ar);
-			free(line);
+			printf("execve FAILS\n");
 			exit(1);
 		}
 		free_ar(ar);
-		free(line);
 		exit(0);
 	}
 	else
 	{
-		wait(NULL);
+		wait(&sig);
 	}
 
 	return (1);

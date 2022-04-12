@@ -22,7 +22,7 @@ int main(int ac __attribute__ ((unused)), char *av[])
 			continue;
 		}
 
-		ar = split_string(line, " \t\n\r\a");
+		ar = split_string(line, " \t\n");
 
 		if (compare_builtins(ar, line) == 1)
 			count++;
@@ -30,8 +30,15 @@ int main(int ac __attribute__ ((unused)), char *av[])
 		if (_strcmp(ar[0], "env") != 0)
 		{
 			count++;
-			validation(ar, get_PATHS());
-			handle_child_process(ar, av, count, line);
+			if (validation(ar, get_PATHS()) == 0)
+			{
+				print_error(av[0], count, ar[0]);
+				free_ar(ar);
+			}
+			else
+			{
+				handle_child_process(ar, av);
+			}
 		}
 	}
 	return (0);

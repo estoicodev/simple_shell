@@ -27,7 +27,7 @@ void prompt(void);
 char *get_input(void);
 int compare_builtins(char **ar, char *line);
 int validation(char **ar, char **paths);
-int handle_child_process(char **ar, char **av, int cnt, char *line);
+int handle_child_process(char **ar, char **av);
 
 /* Helper functions */
 char **split_string(char *str, char *delim);

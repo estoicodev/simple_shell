@@ -11,9 +11,9 @@ void free_ar(char **ar)
 
 	if (ar != NULL)
 	{
-		while (ar[i])
+		while (*(ar + i))
 		{
-			free(ar[i]);
+			free(*(ar + i));
 			i++;
 		}
 		free(ar);
@@ -36,10 +36,8 @@ char **tokalloc(char *buffer, char *delim, int ctok)
 
 	tokens = malloc((ctok + 1) * sizeof(char *));
 	if (tokens == NULL)
-	{
-		free(tokens);
 		return (NULL);
-	}
+
 	for (i = 0; i <= ctok; i++)
 	{
 		if (*buffer == '\0')
@@ -56,9 +54,7 @@ char **tokalloc(char *buffer, char *delim, int ctok)
 
 		if (tokens[i] == NULL)
 		{
-			for (; i >= 0; i--)
-				free(tokens[i]);
-			free(tokens);
+			free_ar(tokens);
 			return (NULL);
 		}
 		buffer++;
@@ -102,6 +98,7 @@ char **_strtok_all(char *buffer, char *delimiter)
 	{
 		if (*ptr2 == '\0')
 			break;
+
 		while (*ptr2 != delimiter[0] && *ptr2 != delimiter[1])
 		{
 			tokens[i][k] = *ptr2;
@@ -152,3 +149,4 @@ char *_strcat(char *dest, char *src)
 
 	return (dest);
 }
+
