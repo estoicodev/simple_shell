@@ -32,8 +32,11 @@ int write_exit(char **ar)
 	if (!ar)
 		return (0);
 
-	if ((_strcmp(ar[0], "exit") == 0) && ar[1] == NULL)
-		return (1);
+	if ((_strcmp(ar[0], "exit") == 0 && _strlen(ar[0]) == 4))
+	{
+		if (ar[1] == NULL)
+			return (1);
+	}
 
 	return (0);
 }

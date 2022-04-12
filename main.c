@@ -8,7 +8,7 @@
  */
 int main(int ac __attribute__ ((unused)), char *av[])
 {
-	char *line = NULL, **ar;
+	char *line = NULL, **paths, **ar;
 	int count = 0;
 
 	while (1)
@@ -24,22 +24,24 @@ int main(int ac __attribute__ ((unused)), char *av[])
 
 		ar = split_string(line, " \t\n");
 
-		if (compare_builtins(ar, line) == 1)
+		if (compare_builtins(ar) == 1)
 			count++;
 
 		if (_strcmp(ar[0], "env") != 0)
 		{
 			count++;
-			if (validation(ar, get_PATHS()) == 0)
+			paths = get_PATHS();
+			if (validation(ar, paths) == 0)
 			{
-				print_error(av[0], count, ar[0]);
 				free_ar(ar);
+				print_error(av[0], count, ar[0]);
 			}
 			else
 			{
-				handle_child_process(ar, av);
 			}
 		}
+		else
+			free_ar(ar);
 	}
 	return (0);
 }

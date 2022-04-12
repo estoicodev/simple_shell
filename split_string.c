@@ -1,42 +1,48 @@
 #include "header.h"
 
-/**
- * count_tokens - The size of words in the string separate by space or tab in
- * @str: String
- *
- * Return: The size of words
- * Otherwise, -1
- */
-int count_tokens(char *str)
+int count_toks(char *str, char *delim)
 {
-	int i, count = 0;
+        int i = 0;
+        char *copy = _strdup(str);
+        char *token = strtok(copy, delim);
 
-	for (i = 0; *str; i++)
-	{
-		/* Esto es para los caracteres especiales al principio */
-		if (*str == '\t' || *str == ' ')
-		{
-			while (*(str + 1) == '\t' || *(str + 1) == ' ')
-				str++;
-		}
+        while (token != NULL)
+        {
+                i++;
+                token = strtok(NULL, delim);
+        }
 
-		if (*(str + 1) == '\t' || *(str + 1) == ' ')
-		{
-			while (*(str + 1) == '\t' || *(str + 1) == ' ')
-				str++;
-			count++;
-		}
-		str++;
-	}
-	count++;
+        if (copy)
+                free(copy);
 
-	/* Esto es para validar si tiene caracter especial al final */
-	if (*(str - 1) == '\t' || *(str - 1) == ' ')
-		count--;
-
-	return (count);
+        return (i);
 }
+/**
+int main(void)
+{
+        int count = 0;
+        char *path = _getenv("PATH");
 
+        if (path)
+                printf("%s\n", path);
+        else
+                printf("Doesn't exist the env var\n");
+
+        count = count_toks(path, ":");
+
+        printf("%s\n", path);
+
+        if (count > 0)
+                printf("Count: %d\n", count);
+        else
+                printf("The env var is empty\n");
+
+        if (path)
+                free(path);
+
+        return (0);
+}
+*/
 /**
  * split_string - split string by space and returns an array of each word
  * @str: String
@@ -47,19 +53,49 @@ int count_tokens(char *str)
  */
 char **split_string(char *str, char *delim)
 {
-	int ar_len, i = 0;
-	char **toks;
+	int len, i = 0;
+	char **tokens;
 
-	ar_len = count_tokens(str);
+	len = count_toks(str, delim);
 
-	toks = malloc((ar_len + 1) * sizeof(char *));
-	if (toks == NULL)
+	tokens = malloc((len + 1) * sizeof(char *));
+	if (tokens == NULL)
 		return (NULL);
 
-	while ((toks[i] = strtok(str, delim)) != NULL)
+	while ((tokens[i] = strtok(str, delim)) != NULL)
 	{
 		str = NULL;
 		i++;
 	}
-	return (toks);
+
+	tokens[i] = NULL;
+
+	return (tokens);
 }
+
+/**
+int main(void)
+{
+	char *delim = ":";
+	char **ar;
+	int i = 0;
+	// char str[] = "hola:como:estas:soy:mauricio";
+	char *str = _getenv("PATH");
+
+	printf("Line: \"%s\"\n", str);
+	printf("Delimiter: \"%s\"\n", delim);
+
+	ar = split_string(str, delim);
+	if (ar)
+	{
+		print_ar(ar);
+		free(ar);
+	}
+
+	// El getline hace malloc y al terminar de usar la linea del getline hacer free al str
+	if (str)
+		free(str);
+
+	return (0);
+}
+*/

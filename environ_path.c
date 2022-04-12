@@ -1,69 +1,126 @@
 #include "header.h"
 /**
- * getenv_PATH - get list of PATHs
+ * _getenv - get list of the path(s) of environment variable
+ * @env: Environment variable
  *
- * Return: string with PATHs
+ * Return: New string of the path(s) of environment variable
+ * Otherwise NULL
  */
-char *getenv_PATH(void)
+char *_getenv(char *env)
 {
-	char **var;
-	char *envpath;
+	int i;
+	char *envline = NULL;
+	char *envpath = NULL;
 
-	for (var = environ; *var != NULL; var++)
+	for (i = 0; *(environ + i); i++)
 	{
-		if (_strncmp(*var, "PATH", 4) == 0)
+		if (_strncmp(*(environ + i), env, _strlen(env)) == 0)
 		{
-			envpath = *var;
+			envline = str_concat(envline, *(environ + i));
 			break;
 		}
 	}
-	envpath += 5;
+	if (envline != NULL)
+	{
+		for (i = 0; i < (_strlen(env) + 1); i++)
+			;
+		envpath = str_concat(envpath, envline + i);
+
+		free(envline);
+	}
+
 
 	return (envpath);
 }
 
-
 /**
- * add_backslash - Add a backslash at the end of each string
- * @paths: String to process
- *
- * Return: Nothing
- */
-void add_backslash(char **paths)
+int main(void)
 {
-	int i, size;
-	char *aux;
+	char *env_line = _getenv("XDXD");
 
-	for (i = 0; paths[i] != NULL; i++)
+	if (env_line)
 	{
-		size = _strlen(paths[i]);
-		aux = malloc((size + 2) * sizeof(char));
-		_strcpy(aux, paths[i]);
-		_strcat(aux, "/");
-		free(paths[i]);
-		paths[i] = NULL;
-		paths[i] = malloc((size + 2) * sizeof(char));
-		_strcpy(paths[i], aux);
-		free(aux);
+		printf("%s\n", env_line);
+		free(env_line);
 	}
+	else
+		printf("Doesn't exist the env var\n");
+
+	return (0);
 }
+*/
 
 /**
- * get_PATHS - get and tokenizes paths
+ * get_PATHS - Get and tokenizes PATHS
  *
- * Return: token of Paths
+ * Return: New array of tokens of PATHS
  */
 char **get_PATHS(void)
 {
-	char **paths;
-	char *envpath = malloc((_strlen(getenv_PATH()) + 2) * sizeof(char));
-	char *delimiter = ": ";
+	int i = 0, size;
+	char *aux;
+	char **env;
+	char *path = _getenv("PATH");
+	char *delim = ":";
 
-	_strcpy(envpath, getenv_PATH());
-	_strcat(envpath, ":");
-	paths = _strtok_all(envpath, delimiter);
-	free(envpath);
-	add_backslash(paths);
+	env = split_string(path, delim);
+	if (!env)
+	{
+		free(path);
+		return (NULL);
+	}
 
-	return (paths);
+	/* Add backslash at the end to each path*/
+	for (i = 0; env[i] != NULL; i++)
+	{
+		size = _strlen(env[i]);
+		aux = malloc((size + 2) * sizeof(char));
+		_strcpy(aux, env[i]);
+		_strcat(aux, "/");
+		env[i] = NULL;
+		env[i] = malloc((size + 2) * sizeof(char));
+		env[i] = aux;
+		aux = NULL;
+	}
+
+	free(path);
+
+	return (env);
 }
+
+/* Without get_PATHS (Todo OK) */
+/**
+int main(void)
+{
+	char **env;
+	char *path = _getenv("PATH");
+	char *delim = ":";
+	env = split_string(path, delim);
+
+	if (env)
+	{
+		print_ar(env);
+		free(env);
+	}
+	if (path)
+		free(path);
+
+	return (0);
+}
+*/
+
+/* With get_PATHS (contextERRORS) */
+/**
+int main(void)
+{
+	char **env = get_PATHS();
+
+	if (env)
+	{
+		print_ar(env);
+		free(env);
+	}
+
+	return (0);
+}
+*/

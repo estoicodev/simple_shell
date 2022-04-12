@@ -1,10 +1,11 @@
 #include "header.h"
 
 /**
- * validation - get and tokenizes paths
+ * validation - Validation of the command existence
  * @ar: ...
  * @paths: ...
- * Return: void
+ * Return: 1 (The command exists)
+ * Otherwise 0
  */
 int validation(char **ar, char **paths)
 {
@@ -19,9 +20,16 @@ int validation(char **ar, char **paths)
 		if (access(abspath_concat, X_OK) != -1)
 		{
 			ar[0] = abspath_concat;
+			handle_child_process(ar);
 			return (1);
 		}
 		free(abspath_concat);
+	}
+
+	if (access(ar[0], X_OK) != -1)
+	{
+		handle_child_process(ar);
+		return (1);
 	}
 
 	return (0);
@@ -80,21 +88,18 @@ char *get_input(void)
 /**
  * compare_builtins - desc
  * @ar: ...
- * @line: ...
  * Return: 1 (Find a success compare)
  */
-int compare_builtins(char **ar, char *line)
+int compare_builtins(char **ar)
 {
 	if (write_exit(ar) == 1)
 	{
 		free_ar(ar);
-		free(line);
 		exit(0);
 	}
-	if (write_env(ar) == 1)
+	else if (write_env(ar) == 1)
 	{
 		fprintenv(environ);
-		free(line);
 		return (1);
 	}
 
@@ -104,10 +109,9 @@ int compare_builtins(char **ar, char *line)
 /**
  * handle_child_process - desc
  * @ar: ...
- * @av: ...
  * Return: 1 (Success). It fails -1
  */
-int handle_child_process(char **ar, char **av)
+int handle_child_process(char **ar)
 {
 	pid_t pid;
 	int sig = 0;
@@ -116,13 +120,7 @@ int handle_child_process(char **ar, char **av)
 		return (-1);
 
 	pid = fork();
-	if (pid < 0)
-	{
-		perror(av[0]);
-		free_ar(ar);
-		exit(1);
-	}
-	else if (pid == 0)
+	if (pid == 0)
 	{
 		if (execve(ar[0], ar, environ) == -1)
 		{

@@ -2,8 +2,8 @@
 
 /**
  * free_ar - function that executes a basic command in the shell
- * @ar: Basic command line entered by the user
- * Return: 1 (Success). Otherwise 0
+ * @ar: Array of strings
+ * Return: void
  */
 void free_ar(char **ar)
 {
@@ -20,6 +20,18 @@ void free_ar(char **ar)
 	}
 }
 
+/**
+ * print_ar - Print each element of an array of strings of strings
+ * @ar: Array of strings
+ * Return: void
+ */
+void print_ar(char **ar)
+{
+        int i = 0;
+
+        for (i = 0; *(ar + i); i++)
+                printf("array[%d] = \"%s\"\n", i, *(ar + i));
+}
 
 /**
  * tokalloc - allocate memory space to the new array of tokens
