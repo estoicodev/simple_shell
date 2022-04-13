@@ -1,12 +1,12 @@
 #include "header.h"
 
 /**
- * write_spaces - function
+ * only_spaces - function
  * @command: ...
  *
  * Return: 1 is success, Otherwise 0
  */
-int write_spaces(char *command)
+int only_spaces(char *command)
 {
 	int i;
 
@@ -21,39 +21,34 @@ int write_spaces(char *command)
 	return (0);
 }
 
-/**
- * write_exit - function
- * @ar: ...
- *
- * Return: 1 is success, Otherwise 0
- */
-int write_exit(char **ar)
+char *start_spaces(char *command)
 {
-	if (!ar)
-		return (0);
+	int i, j;
 
-	if ((_strcmp(ar[0], "exit") == 0 && _strlen(ar[0]) == 4))
+	for (i = 0; command[i] == ' ' || command[i] == '\t'; i++)
+	{}
+
+	if (command[i] != '\n')
 	{
-		if (ar[1] == NULL)
-			return (1);
+		for (j = 0; j < i; j++)
+		{
+			command++;
+		}
+		return (command);
 	}
 
-	return (0);
+	return (command);
 }
 
 /**
- * write_env - function
- * @ar: ...
- *
- * Return: 1 is success, Otherwise 0
- */
-int write_env(char **ar)
+int main(void)
 {
-	if (!ar)
-		return (0);
+	char *str = "  exit";
 
-	if ((_strcmp(ar[0], "env") == 0) && ar[1] == NULL)
-		return (1);
+	printf("%s\n", str);
+	str = start_spaces(str);
+	printf("%s\n", str);
 
 	return (0);
 }
+*/

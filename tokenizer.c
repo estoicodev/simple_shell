@@ -8,7 +8,7 @@
  * Return: Size of word in the string,
  * Otherwise, NULL
  */
-int count_toks(char *str, char *delim)
+int count_tokens(char *str, char *delim)
 {
 	int i = 0;
 	char *copy = _strdup(str);
@@ -53,36 +53,31 @@ int main(void)
 */
 
 /**
- * split_string - split string by delimitator and returns an array of each word
+ * tokenizer - split string by delimitator and returns an array of each word
  * @str: String
  * @delim: Delimitator
  *
  * Return: Array of each word of the string,
  * Otherwise, NULL
  */
-char **split_string(char *str, char *delim)
+char **tokenizer(char *str, char *delim)
 {
-	int len, i = 0;
-	char **tokens;
+	int size = 0, i = 0;
+	char **tokens, *aux;
 
-	len = count_toks(str, delim);
+	size = count_tokens(str, delim);
 
-	tokens = malloc((len + 1) * sizeof(char *));
+	tokens = _calloc(size + 1, sizeof(char *));
 	if (tokens == NULL)
 		return (NULL);
 
-	while ((tokens[i] = strtok(str, delim)) != NULL)
+	aux = strtok(str, delim);
+	while (aux != NULL)
 	{
-		str = NULL;
+		tokens[i] = str_concat(aux, "");
+		aux = strtok(NULL, delim);
 		i++;
 	}
-	tokens[i] = NULL;
-
-	if (str)
-		free(str);
-
-	print_ar(tokens);
-	printf("------------------------------------\n");
 
 	return (tokens);
 }
@@ -106,25 +101,30 @@ int main(void)
 /**
 int main(void)
 {
-	char *delim = ":";
+	char delim[] = " \t";
 	char **ar;
-	int i = 0;
-	// char str[] = "hola:como:estas:soy:mauricio";
-	char *str = _getenv("PATH");
+	int i = 0, size = 0;
+	char str[] = " \tholacomo\t mellamomauricio dewf we wew";
 
 	printf("Line: \"%s\"\n", str);
+	printf("Len: %d\n", _strlen(str));
 	printf("Delimiter: \"%s\"\n", delim);
+	printf("-----------------\n");
 
-	ar = split_string(str, delim);
-	if (ar)
-	{
-		print_ar(ar);
-		free(ar);
-	}
+	size = count_tokens(str, delim);
 
-	// El getline hace malloc y al terminar de usar la linea del getline hacer free al str
-	if (str)
-		free(str);
+	ar = tokenizer(str, delim);
+
+	printf("ar[0] = %s\n", ar[0]);
+	printf("Address = %p\n", ar[0]);
+	printf("str = %s\n", str);
+	printf("Address = %p\n", str);
+
+	if (!ar)
+		return (1);
+
+	print_ar(ar);
+	free_ar(ar);
 
 	return (0);
 }

@@ -29,8 +29,37 @@ void print_ar(char **ar)
 {
 	int i = 0;
 
-	for (i = 0; *(ar + i); i++)
-		printf("array[%d] = \"%s\"\n", i, *(ar + i));
+	if (*(ar + i))
+		for (i = 0; *(ar + i); i++)
+			printf("array[%d] = \"%s\"\n", i, *(ar + i));
+}
+
+/**
+ * _calloc - desc
+ * @nmemb: desc
+ * @size: desc
+ *
+ * Return: void pointer.
+ */
+void *_calloc(unsigned int nmemb, unsigned int size)
+{
+	unsigned int i;
+	char *ptr;
+
+	if (nmemb == 0 || size == 0)
+		return (NULL);
+
+	ptr = malloc(nmemb * size);
+
+	if (ptr == NULL)
+		return (NULL);
+
+	for (i = 0; i < nmemb * size; i++)
+	{
+		*(ptr + i) = 0;
+	}
+
+	return ((void *)ptr);
 }
 
 /**

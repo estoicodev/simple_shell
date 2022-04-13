@@ -7,7 +7,7 @@
  * Return: 1 (The command exists)
  * Otherwise 0
  */
-int validation(char **ar, char **paths)
+int validation(char **ar, char **paths, char **av, int cnt)
 {
 	int i;
 	char *abspath_concat;
@@ -20,7 +20,7 @@ int validation(char **ar, char **paths)
 		if (access(abspath_concat, X_OK) != -1)
 		{
 			ar[0] = abspath_concat;
-			handle_child_process(ar);
+			handle_child_process(ar, av, cnt);
 			return (1);
 		}
 		free(abspath_concat);
@@ -28,7 +28,7 @@ int validation(char **ar, char **paths)
 
 	if (access(ar[0], X_OK) != -1)
 	{
-		handle_child_process(ar);
+		handle_child_process(ar, av, cnt);
 		return (1);
 	}
 
@@ -76,11 +76,13 @@ char *get_input(void)
 		free(line);
 		exit(0);
 	}
-	else if (write_spaces(line) == 1)
+	else if (only_spaces(line) == 1)
 	{
 		free(line);
 		return (NULL);
 	}
+
+	line = start_spaces(line);
 
 	return (line);
 }
@@ -92,12 +94,11 @@ char *get_input(void)
  */
 int compare_builtins(char **ar)
 {
-	if (write_exit(ar) == 1)
+	if (_strcmp(ar[0], "exit") == 0 && ar[0] == NULL)
 	{
-		free_ar(ar);
 		exit(0);
 	}
-	else if (write_env(ar) == 1)
+	else if (_strcmp(ar[0], "env") == 0 && ar[0] == NULL)
 	{
 		fprintenv(environ);
 		return (1);
@@ -111,7 +112,7 @@ int compare_builtins(char **ar)
  * @ar: ...
  * Return: 1 (Success). It fails -1
  */
-int handle_child_process(char **ar)
+int handle_child_process(char **ar, char **av, int cnt)
 {
 	pid_t pid;
 	int sig = 0;
@@ -124,11 +125,11 @@ int handle_child_process(char **ar)
 	{
 		if (execve(ar[0], ar, environ) == -1)
 		{
-			free_ar(ar);
-			printf("execve FAILS\n");
-			exit(1);
+			print_error(av[0], cnt, ar[0]);
+			return (-1);
 		}
-		free_ar(ar);
+		if (ar)
+			free_ar(ar);
 		exit(0);
 	}
 	else

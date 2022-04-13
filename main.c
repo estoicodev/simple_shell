@@ -22,24 +22,20 @@ int main(int ac __attribute__ ((unused)), char *av[])
 			continue;
 		}
 
-		ar = split_string(line, " \t\n");
-
-		printf("line: %s\n",line);
+		ar = tokenizer(line, " \t\n");
 
 		if (compare_builtins(ar) == 1)
 			count++;
 
-		if (_strcmp(ar[0], "env") != 0)
+		if (_strcmp(ar[0], "env") != 0 && _strcmp(ar[0], "exit") != 0)
 		{
 			count++;
 			paths = get_PATHS();
-			if (validation(ar, paths) == 0)
-			{
+			if (validation(ar, paths, av, count) == 0)
 				print_error(av[0], count, ar[0]);
-			}
 		}
-		else
-			free_ar(ar);
+		free_ar(paths);
+		free_ar(ar);
 	}
 	return (0);
 }
