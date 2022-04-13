@@ -20,3 +20,30 @@ int only_special_characters(char *command)
 
 	return (0);
 }
+
+/**
+ * write_exit - Find if user enter 'exit' to go out of the shell
+ * @ar: ...
+ * @cnt: ...
+ *
+ * Return: 1 is success, Otherwise -1
+ */
+int write_exit(char **ar, int cnt)
+{
+	if (ar[0][0] != 'e' && _strcmp(ar[0], "exit") == 0)
+	{
+		if (ar[1] != NULL)
+		{
+			cnt++;
+			return (-1);
+		}
+
+		if (_strlen(ar[0]) == 4)
+		{
+			free_ar(ar);
+			exit(0);
+		}
+	}
+
+	return (0);
+}

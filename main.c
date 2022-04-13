@@ -24,26 +24,20 @@ int main(int ac __attribute__ ((unused)), char *av[])
 
 		ar = tokenizer(line, " \t\n");
 
-		if (_strcmp(ar[0], "exit") == 0 && _strlen(ar[0]) == 4)
-		{
-			free_ar(ar);
-			exit(0);
-		}
+		write_exit(ar, count);
 
 		if (compare_builtins(ar) == 1)
 			count++;
 
-		if (_strcmp(ar[0], "env") != 0 && _strcmp(ar[0], "exit") != 0)
+		if (_strcmp(ar[0], "env") != 0)
 		{
 			count++;
 			paths = get_PATHS();
 			if (validation(ar, paths, av, count) == 0)
 				print_error(av[0], count, ar[0]);
-			if (paths)
-				free_ar(paths);
-			if (ar)
-				free_ar(ar);
+			free_ar(paths);
 		}
+		free_ar(ar);
 	}
 	return (0);
 }
