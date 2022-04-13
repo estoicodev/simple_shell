@@ -27,10 +27,10 @@ void free_ar(char **ar)
  */
 void print_ar(char **ar)
 {
-        int i = 0;
+	int i = 0;
 
-        for (i = 0; *(ar + i); i++)
-                printf("array[%d] = \"%s\"\n", i, *(ar + i));
+	for (i = 0; *(ar + i); i++)
+		printf("array[%d] = \"%s\"\n", i, *(ar + i));
 }
 
 /**

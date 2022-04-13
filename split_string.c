@@ -1,21 +1,29 @@
 #include "header.h"
 
+/**
+ * count_toks - Count the words of an array with a delimitator
+ * @str: String
+ * @delim: Delimitator
+ *
+ * Return: Size of word in the string,
+ * Otherwise, NULL
+ */
 int count_toks(char *str, char *delim)
 {
-        int i = 0;
-        char *copy = _strdup(str);
-        char *token = strtok(copy, delim);
+	int i = 0;
+	char *copy = _strdup(str);
+	char *token = strtok(copy, delim);
 
-        while (token != NULL)
-        {
-                i++;
-                token = strtok(NULL, delim);
-        }
+	while (token != NULL)
+	{
+		i++;
+		token = strtok(NULL, delim);
+	}
 
-        if (copy)
-                free(copy);
+	if (copy)
+		free(copy);
 
-        return (i);
+	return (i);
 }
 /**
 int main(void)
@@ -43,8 +51,9 @@ int main(void)
         return (0);
 }
 */
+
 /**
- * split_string - split string by space and returns an array of each word
+ * split_string - split string by delimitator and returns an array of each word
  * @str: String
  * @delim: Delimitator
  *
@@ -67,11 +76,32 @@ char **split_string(char *str, char *delim)
 		str = NULL;
 		i++;
 	}
-
 	tokens[i] = NULL;
+
+	if (str)
+		free(str);
+
+	print_ar(tokens);
+	printf("------------------------------------\n");
 
 	return (tokens);
 }
+
+/**
+int main(void)
+{
+	char *line = NULL;
+	ssize_t n;
+	size_t size = 0;
+	char **ar;
+
+	n = getline(&line, &size, stdin);
+
+	ar = split_string(line, " \t\n");
+
+	return (0);
+}
+*/
 
 /**
 int main(void)

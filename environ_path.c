@@ -70,6 +70,8 @@ char **get_PATHS(void)
 		return (NULL);
 	}
 
+	printf("PATH = %s\n", path);
+
 	/* Add backslash at the end to each path*/
 	for (i = 0; env[i] != NULL; i++)
 	{
@@ -82,6 +84,8 @@ char **get_PATHS(void)
 		env[i] = aux;
 		aux = NULL;
 	}
+
+	print_ar(env);
 
 	free(path);
 

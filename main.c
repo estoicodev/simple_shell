@@ -24,6 +24,8 @@ int main(int ac __attribute__ ((unused)), char *av[])
 
 		ar = split_string(line, " \t\n");
 
+		printf("line: %s\n",line);
+
 		if (compare_builtins(ar) == 1)
 			count++;
 
@@ -33,11 +35,7 @@ int main(int ac __attribute__ ((unused)), char *av[])
 			paths = get_PATHS();
 			if (validation(ar, paths) == 0)
 			{
-				free_ar(ar);
 				print_error(av[0], count, ar[0]);
-			}
-			else
-			{
 			}
 		}
 		else

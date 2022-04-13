@@ -16,7 +16,8 @@ int print_error(char *programm, int count, char *command)
 	write(STDERR_FILENO, number, _strlen(number));
 	write(STDERR_FILENO, ": ", 2);
 	write(STDERR_FILENO, command, _strlen(command));
-	perror(" ");
+	write(STDERR_FILENO, ": ", 2);
+	perror("");
 
 	return (0);
 }
