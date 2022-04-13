@@ -53,7 +53,8 @@ char **tokenizer(char *str, char *delim)
 		i++;
 	}
 
-	free(str);
+	if (str)
+		free(str);
 
 	return (tokens);
 }

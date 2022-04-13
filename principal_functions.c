@@ -78,13 +78,11 @@ char *get_input(void)
 		free(line);
 		exit(0);
 	}
-	else if (only_spaces(line) == 1)
+	else if (only_special_characters(line) == 1)
 	{
 		free(line);
 		return (NULL);
 	}
-
-	line = start_spaces(line);
 
 	return (line);
 }
@@ -96,13 +94,7 @@ char *get_input(void)
  */
 int compare_builtins(char **ar)
 {
-	if (_strcmp(ar[0], "exit") == 0 && ar[0] == NULL)
-	{
-		if (ar)
-			free_ar(ar);
-		exit(0);
-	}
-	else if (_strcmp(ar[0], "env") == 0 && ar[0] == NULL)
+	if (_strcmp(ar[0], "env") == 0 && ar[0] == NULL)
 	{
 		fprintenv(environ);
 		if (ar)

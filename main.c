@@ -24,6 +24,12 @@ int main(int ac __attribute__ ((unused)), char *av[])
 
 		ar = tokenizer(line, " \t\n");
 
+		if (_strcmp(ar[0], "exit") == 0 && _strlen(ar[0]) == 4)
+		{
+			free_ar(ar);
+			exit(0);
+		}
+
 		if (compare_builtins(ar) == 1)
 			count++;
 
@@ -33,11 +39,11 @@ int main(int ac __attribute__ ((unused)), char *av[])
 			paths = get_PATHS();
 			if (validation(ar, paths, av, count) == 0)
 				print_error(av[0], count, ar[0]);
+			if (paths)
+				free_ar(paths);
+			if (ar)
+				free_ar(ar);
 		}
-		if (paths)
-			free_ar(paths);
-		if (ar)
-			free_ar(ar);
 	}
 	return (0);
 }

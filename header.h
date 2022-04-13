@@ -32,8 +32,7 @@ int handle_child_process(char *first, char **ar, char **av, int cnt);
 /* Helper functions */
 char **tokenizer(char *str, char *delim);
 int count_tokens(char *str, char *delim);
-int only_spaces(char *command);
-char *start_spaces(char *command);
+int only_special_characters(char *command);
 int write_exit(char **ar);
 int write_env(char **ar);
 void free_ar(char **ar);

@@ -9,6 +9,9 @@ void free_ar(char **ar)
 {
 	int i = 0;
 
+	if (ar == NULL)
+		return;
+
 	if (ar != NULL)
 	{
 		while (*(ar + i))
