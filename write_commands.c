@@ -30,7 +30,7 @@ int only_special_characters(char *command)
  */
 int write_exit(char **ar, int cnt)
 {
-	if (ar[0][0] != 'e' && _strcmp(ar[0], "exit") == 0)
+	if (_strcmp(ar[0], "exit") == 0)
 	{
 		if (ar[1] != NULL)
 		{
