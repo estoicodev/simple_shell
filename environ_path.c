@@ -34,23 +34,6 @@ char *_getenv(char *env)
 }
 
 /**
-int main(void)
-{
-	char *env_line = _getenv("XDXD");
-
-	if (env_line)
-	{
-		printf("%s\n", env_line);
-		free(env_line);
-	}
-	else
-		printf("Doesn't exist the env var\n");
-
-	return (0);
-}
-*/
-
-/**
  * get_PATHS - Get and tokenizes PATHS
  *
  * Return: New array of tokens of PATHS
@@ -74,32 +57,10 @@ char **get_PATHS(void)
 	/* Concat each string with backslash at the end */
 	aux = foreach_concat(paths, "/");
 
-	free(path);
 	free_ar(paths);
 
 	return (aux);
 }
-
-/* Without get_PATHS (Todo OK) */
-/**
-int main(void)
-{
-	char **env;
-	char *path = _getenv("PATH");
-	char *delim = ":";
-	env = split_string(path, delim);
-
-	if (env)
-	{
-		print_ar(env);
-		free(env);
-	}
-	if (path)
-		free(path);
-
-	return (0);
-}
-*/
 
 /* With get_PATHS (contextERRORS) */
 /**
@@ -117,6 +78,13 @@ int main(void)
 }
 */
 
+/**
+ * foreach_concat - Concatenates the same string for each element of the array
+ * @ar: ...
+ * @src: ...
+ *
+ * Return: New array of strings
+ */
 char **foreach_concat(char **ar, char *src)
 {
 	char **new_ar;
@@ -136,6 +104,7 @@ char **foreach_concat(char **ar, char *src)
 
 	return (new_ar);
 }
+
 /**
 int main(void)
 {

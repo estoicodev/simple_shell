@@ -4,6 +4,8 @@
  * validation - Validation of the command existence
  * @ar: ...
  * @paths: ...
+ * @av: ...
+ * @cnt: ...
  * Return: 1 (The command exists)
  * Otherwise 0
  */
@@ -19,8 +21,8 @@ int validation(char **ar, char **paths, char **av, int cnt)
 
 		if (access(abspath_concat, X_OK) != -1)
 		{
-			ar[0] = abspath_concat;
-			handle_child_process(ar, av, cnt);
+			handle_child_process(abspath_concat, ar, av, cnt);
+			free(abspath_concat);
 			return (1);
 		}
 		free(abspath_concat);
@@ -28,7 +30,7 @@ int validation(char **ar, char **paths, char **av, int cnt)
 
 	if (access(ar[0], X_OK) != -1)
 	{
-		handle_child_process(ar, av, cnt);
+		handle_child_process(ar[0], ar, av, cnt);
 		return (1);
 	}
 
@@ -96,11 +98,15 @@ int compare_builtins(char **ar)
 {
 	if (_strcmp(ar[0], "exit") == 0 && ar[0] == NULL)
 	{
+		if (ar)
+			free_ar(ar);
 		exit(0);
 	}
 	else if (_strcmp(ar[0], "env") == 0 && ar[0] == NULL)
 	{
 		fprintenv(environ);
+		if (ar)
+			free_ar(ar);
 		return (1);
 	}
 
@@ -109,10 +115,13 @@ int compare_builtins(char **ar)
 
 /**
  * handle_child_process - desc
+ * @first: ...
  * @ar: ...
+ * @av: ...
+ * @cnt: ...
  * Return: 1 (Success). It fails -1
  */
-int handle_child_process(char **ar, char **av, int cnt)
+int handle_child_process(char *first, char **ar, char **av, int cnt)
 {
 	pid_t pid;
 	int sig = 0;
@@ -123,7 +132,7 @@ int handle_child_process(char **ar, char **av, int cnt)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (execve(ar[0], ar, environ) == -1)
+		if (execve(first, ar, environ) == -1)
 		{
 			print_error(av[0], cnt, ar[0]);
 			return (-1);

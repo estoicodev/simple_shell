@@ -27,20 +27,16 @@ void prompt(void);
 char *get_input(void);
 int compare_builtins(char **ar);
 int validation(char **ar, char **paths, char **av, int cnt);
-int handle_child_process(char **ar, char **av, int cnt);
+int handle_child_process(char *first, char **ar, char **av, int cnt);
 
 /* Helper functions */
 char **tokenizer(char *str, char *delim);
 int count_tokens(char *str, char *delim);
-char **tokalloc(char *buffer, char *delim, int ctok);
-char **_strtok_all(char *buffer, char *delimiter);
-int write_exit(char **ar);
 int only_spaces(char *command);
 char *start_spaces(char *command);
+int write_exit(char **ar);
 int write_env(char **ar);
-int count_subcommands(char *str);
 void free_ar(char **ar);
-void print_ar(char **ar);
 char **foreach_concat(char **ar, char *src);
 
 /* PATH */

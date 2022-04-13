@@ -1,7 +1,7 @@
 #include "header.h"
 
 /**
- * count_toks - Count the words of an array with a delimitator
+ * count_tokens - Count the words of an array with a delimitator
  * @str: String
  * @delim: Delimitator
  *
@@ -25,32 +25,6 @@ int count_tokens(char *str, char *delim)
 
 	return (i);
 }
-/**
-int main(void)
-{
-        int count = 0;
-        char *path = _getenv("PATH");
-
-        if (path)
-                printf("%s\n", path);
-        else
-                printf("Doesn't exist the env var\n");
-
-        count = count_toks(path, ":");
-
-        printf("%s\n", path);
-
-        if (count > 0)
-                printf("Count: %d\n", count);
-        else
-                printf("The env var is empty\n");
-
-        if (path)
-                free(path);
-
-        return (0);
-}
-*/
 
 /**
  * tokenizer - split string by delimitator and returns an array of each word
@@ -79,24 +53,10 @@ char **tokenizer(char *str, char *delim)
 		i++;
 	}
 
+	free(str);
+
 	return (tokens);
 }
-
-/**
-int main(void)
-{
-	char *line = NULL;
-	ssize_t n;
-	size_t size = 0;
-	char **ar;
-
-	n = getline(&line, &size, stdin);
-
-	ar = split_string(line, " \t\n");
-
-	return (0);
-}
-*/
 
 /**
 int main(void)

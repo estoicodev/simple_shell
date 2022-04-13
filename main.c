@@ -34,8 +34,10 @@ int main(int ac __attribute__ ((unused)), char *av[])
 			if (validation(ar, paths, av, count) == 0)
 				print_error(av[0], count, ar[0]);
 		}
-		free_ar(paths);
-		free_ar(ar);
+		if (paths)
+			free_ar(paths);
+		if (ar)
+			free_ar(ar);
 	}
 	return (0);
 }

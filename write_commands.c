@@ -21,6 +21,12 @@ int only_spaces(char *command)
 	return (0);
 }
 
+/**
+ * start_spaces - function
+ * @command: ...
+ *
+ * Return: 1 is success, Otherwise 0
+ */
 char *start_spaces(char *command)
 {
 	int i, j;
@@ -39,16 +45,3 @@ char *start_spaces(char *command)
 
 	return (command);
 }
-
-/**
-int main(void)
-{
-	char *str = "  exit";
-
-	printf("%s\n", str);
-	str = start_spaces(str);
-	printf("%s\n", str);
-
-	return (0);
-}
-*/
