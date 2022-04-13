@@ -10,6 +10,7 @@ void fprintenv(char **env)
 {
 	int i;
 
-	for (i = 0; env[i]; i++)
-		_puts(env[i]);
+	if (env)
+		for (i = 0; env[i]; i++)
+			_puts(env[i]);
 }

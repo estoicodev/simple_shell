@@ -24,9 +24,7 @@ int main(int ac __attribute__ ((unused)), char *av[])
 
 		ar = tokenizer(line, " \t\n");
 
-		write_exit(ar, count);
-
-		if (compare_builtins(ar) == 1)
+		if (compare_builtins(ar, count) == 1)
 			count++;
 
 		if (_strcmp(ar[0], "env") != 0)

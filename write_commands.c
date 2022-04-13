@@ -26,24 +26,22 @@ int only_special_characters(char *command)
  * @ar: ...
  * @cnt: ...
  *
- * Return: 1 is success, Otherwise -1
+ * Return: void
  */
-int write_exit(char **ar, int cnt)
+void write_exit(char **ar, int cnt)
 {
-	if (_strcmp(ar[0], "exit") == 0)
+	if (_strcmp(ar[0], "exit") == 0 && _strlen(ar[0]) == 4)
 	{
 		if (ar[1] != NULL)
 		{
 			cnt++;
-			return (-1);
+			return;
 		}
-
-		if (_strlen(ar[0]) == 4)
+		else
 		{
 			free_ar(ar);
 			exit(0);
 		}
 	}
 
-	return (0);
 }

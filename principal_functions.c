@@ -90,15 +90,17 @@ char *get_input(void)
 /**
  * compare_builtins - desc
  * @ar: ...
+ * @count: ...
  * Return: 1 (Find a success compare)
+ * Otherwise 0
  */
-int compare_builtins(char **ar)
+int compare_builtins(char **ar, int count)
 {
-	if (_strcmp(ar[0], "env") == 0 && ar[0] == NULL)
+	write_exit(ar, count);
+
+	if (_strcmp(ar[0], "env") == 0 && _strlen(ar[0]) == 3)
 	{
 		fprintenv(environ);
-		if (ar)
-			free_ar(ar);
 		return (1);
 	}
 
