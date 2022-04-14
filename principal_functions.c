@@ -13,6 +13,7 @@ int validation(char **ar, char **paths, char **av, int cnt)
 {
 	int i;
 	char *abspath_concat;
+	struct stat sb;
 
 	for (i = 0; paths[i] != NULL; i++)
 	{
@@ -21,6 +22,7 @@ int validation(char **ar, char **paths, char **av, int cnt)
 
 		if (access(abspath_concat, X_OK) != -1)
 		{
+			stat(abspath_concat, &sb);
 			handle_child_process(abspath_concat, ar, av, cnt);
 			free(abspath_concat);
 			return (1);
@@ -30,6 +32,7 @@ int validation(char **ar, char **paths, char **av, int cnt)
 
 	if (access(ar[0], X_OK) != -1)
 	{
+		stat(ar[0], &sb);
 		handle_child_process(ar[0], ar, av, cnt);
 		return (1);
 	}

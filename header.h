@@ -28,6 +28,7 @@ char *get_input(void);
 int compare_builtins(char **ar, int count);
 int validation(char **ar, char **paths, char **av, int cnt);
 int handle_child_process(char *first, char **ar, char **av, int cnt);
+void continue_programm(int sig);
 
 /* Helper functions */
 char **tokenizer(char *str, char *delim);

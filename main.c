@@ -10,7 +10,7 @@ int main(int ac __attribute__ ((unused)), char *av[])
 {
 	char *line = NULL, **paths, **ar;
 	int count = 0;
-
+	signal(SIGINT, continue_programm);
 	while (1)
 	{
 		prompt();
