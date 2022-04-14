@@ -9,7 +9,7 @@
 int main(int ac __attribute__ ((unused)), char *av[])
 {
 	char *line = NULL, **paths, **ar;
-	int count = 0;
+	int count = 0, res;
 	signal(SIGINT, continue_programm);
 	while (1)
 	{
@@ -24,8 +24,15 @@ int main(int ac __attribute__ ((unused)), char *av[])
 
 		ar = tokenizer(line, " \t\n");
 
-		if (compare_builtins(ar, count) == 1)
+		res = compare_builtins(ar);
+		if (res != 0)
 			count++;
+		if (res == -1)
+		{
+			ext_err(av[0], count, ar);
+			free_ar(ar);
+			continue;
+		}
 
 		if (_strcmp(ar[0], "env") != 0)
 		{

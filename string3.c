@@ -68,3 +68,63 @@ char *_strdup(char *str)
 
 	return (s_array);
 }
+
+int _atoi(char *s)
+{
+	int i, minus, res, flag;
+
+	res = 0;
+	flag = 0;
+	minus = -1;
+
+	for (i = 0; *(s + i) != '\0'; i++)
+	{
+		if (*(s + i) == '-')
+			minus *= -1;
+
+		if (*(s + i) >= 48 && *(s + i) < 58)
+		{
+			res *= 10;
+			res -= (*(s + i) - '0');
+			flag = 1;
+		}
+		else if (flag == 1)
+			break;
+	}
+	res *= minus;
+
+	return (res);
+}
+
+int is_valid_number(char *str)
+{
+	int i = 0;
+
+	for (i = 0; *(str + i); i++)
+	{
+		if (*(str + i) < '0' || *(str + i) > '9')
+			return (-1);
+	}
+
+	return (1);
+}
+
+/**
+int main(void)
+{
+	int nb, i;
+	char *str = "98";
+
+	if (is_valid_number(str) == 1)
+	{
+		nb = _atoi(str);
+		printf("%d\n", nb);
+	}
+	else
+	{
+		printf("./hsh: 1: exit: Illegal number: %s\n", str);
+	}
+
+		return (0);
+}
+*/

@@ -21,11 +21,12 @@ int _strncmp(char *s, char *t, int n);
 int _putchar(char c);
 void _puts(char *str);
 char *_itoa(int num, int base);
+int _atoi(char *s);
 
 /* Main functions */
 void prompt(void);
 char *get_input(void);
-int compare_builtins(char **ar, int count);
+int compare_builtins(char **ar);
 int validation(char **ar, char **paths, char **av, int cnt);
 int handle_child_process(char *first, char **ar, char **av, int cnt);
 void continue_programm(int sig);
@@ -34,10 +35,11 @@ void continue_programm(int sig);
 char **tokenizer(char *str, char *delim);
 int count_tokens(char *str, char *delim);
 int only_special_characters(char *command);
-void write_exit(char **ar, int cnt);
+int write_exit(char **ar);
 int write_env(char **ar);
 void free_ar(char **ar);
 char **foreach_concat(char **ar, char *src);
+int is_valid_number(char *str);
 
 /* PATH */
 char *_getenv(char *env);

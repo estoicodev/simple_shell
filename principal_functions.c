@@ -94,12 +94,17 @@ char *get_input(void)
  * compare_builtins - desc
  * @ar: ...
  * @count: ...
+ *
  * Return: 1 (Find a success compare)
+ * -1 for error message printed,
  * Otherwise 0
  */
-int compare_builtins(char **ar, int count)
+int compare_builtins(char **ar)
 {
-	write_exit(ar, count);
+	if (write_exit(ar) == -1)
+	{
+		return (-1);
+	}
 
 	if (_strcmp(ar[0], "env") == 0 && _strlen(ar[0]) == 3)
 	{
