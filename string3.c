@@ -69,6 +69,12 @@ char *_strdup(char *str)
 	return (s_array);
 }
 
+/**
+ * _atoi - Converts an string to an integer
+ * @s: String to be converted
+ *
+ * Return: Integer
+ */
 int _atoi(char *s)
 {
 	int i, minus, res, flag;
@@ -96,6 +102,13 @@ int _atoi(char *s)
 	return (res);
 }
 
+/**
+ * is_valid_number - Validation of ONLY a positive number in the string
+ * @str: String
+ *
+ * Return: 1 Success
+ * Otherwise, -1
+ */
 int is_valid_number(char *str)
 {
 	int i = 0;

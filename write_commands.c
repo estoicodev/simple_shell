@@ -24,13 +24,12 @@ int only_special_characters(char *command)
 /**
  * write_exit - Find if user enter 'exit' to go out of the shell
  * @ar: ...
- * @cnt: ...
- * @av: ...
+ * @status: ...
  *
  * Return: 0 Not print exit
  * Otherwise argument exit error
  */
-int write_exit(char **ar)
+int write_exit(char **ar, int *status)
 {
 	int ex;
 
@@ -45,14 +44,12 @@ int write_exit(char **ar)
 				exit(ex);
 			}
 			else
-			{
 				return (-1);
-			}
 		}
 		else
 		{
 			free_ar(ar);
-			exit(2);
+			exit(*status);
 		}
 	}
 

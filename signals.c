@@ -1,5 +1,9 @@
 #include "header.h"
-
+/**
+ * continue_programm - Function to handle the signal CTRL+C
+ *
+ * Return: void
+ */
 void continue_programm(int sig)
 {
 	(void)sig;

@@ -25,17 +25,17 @@ int _atoi(char *s);
 
 /* Main functions */
 void prompt(void);
-char *get_input(void);
-int compare_builtins(char **ar);
-int validation(char **ar, char **paths, char **av, int cnt);
-int handle_child_process(char *first, char **ar, char **av, int cnt);
+char *get_input(int status);
+int compare_builtins(char **ar, char **av, int cnt, int *status);
+int validation(char **ar, char **paths, char **av, int cnt, int *status);
+int child_process(char *first, char **ar, char **av, int cnt, int *status);
 void continue_programm(int sig);
 
 /* Helper functions */
 char **tokenizer(char *str, char *delim);
 int count_tokens(char *str, char *delim);
 int only_special_characters(char *command);
-int write_exit(char **ar);
+int write_exit(char **ar, int *status);
 int write_env(char **ar);
 void free_ar(char **ar);
 char **foreach_concat(char **ar, char *src);
@@ -50,6 +50,7 @@ void fprintenv(char **env);
 
 /* Handle Errors */
 int print_error(char *programm, int count, char *command);
+int not_found(char *programm, int count, char *command);
 int ext_err(char *programm, int count, char **ar);
 
 #endif

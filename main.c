@@ -9,13 +9,14 @@
 int main(int ac __attribute__ ((unused)), char *av[])
 {
 	char *line = NULL, **paths, **ar;
-	int count = 0, res;
+	int count = 1, status = 0;
+
 	signal(SIGINT, continue_programm);
 	while (1)
 	{
 		prompt();
 
-		line = get_input();
+		line = get_input(status);
 		if (line == NULL)
 		{
 			count++;
@@ -23,25 +24,16 @@ int main(int ac __attribute__ ((unused)), char *av[])
 		}
 
 		ar = tokenizer(line, " \t\n");
+		compare_builtins(ar, av, count, &status);
 
-		res = compare_builtins(ar);
-		if (res != 0)
-			count++;
-		if (res == -1)
+		if (_strcmp(ar[0], "env") != 0 && _strcmp(ar[0], "exit") != 0)
 		{
-			ext_err(av[0], count, ar);
-			free_ar(ar);
-			continue;
-		}
-
-		if (_strcmp(ar[0], "env") != 0)
-		{
-			count++;
 			paths = get_PATHS();
-			if (validation(ar, paths, av, count) == 0)
-				print_error(av[0], count, ar[0]);
+			validation(ar, paths, av, count, &status);
+
 			free_ar(paths);
 		}
+		count++;
 		free_ar(ar);
 	}
 	return (0);

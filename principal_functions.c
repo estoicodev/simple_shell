@@ -6,42 +6,48 @@
  * @paths: ...
  * @av: ...
  * @cnt: ...
- * Return: 1 (The command exists)
+ * @status: ...
+ * Return: 1 If find the command
  * Otherwise 0
  */
-int validation(char **ar, char **paths, char **av, int cnt)
+int validation(char **ar, char **paths, char **av, int cnt, int *status)
 {
 	int i;
-	char *abspath_concat;
-	struct stat sb;
+	char *abspath;
 
-	for (i = 0; paths[i] != NULL; i++)
+	if (paths)
 	{
-		abspath_concat = "";
-		abspath_concat = str_concat(paths[i], ar[0]);
-
-		if (access(abspath_concat, X_OK) != -1)
+		for (i = 0; paths[i] != NULL; i++)
 		{
-			stat(abspath_concat, &sb);
-			handle_child_process(abspath_concat, ar, av, cnt);
-			free(abspath_concat);
-			return (1);
+			abspath = "";
+			abspath = str_concat(paths[i], ar[0]);
+
+			if (access(abspath, X_OK) != -1)
+			{
+				child_process(abspath, ar, av, cnt, status);
+				free(abspath);
+				return (1);
+			}
+			free(abspath);
 		}
-		free(abspath_concat);
 	}
 
-	if (access(ar[0], X_OK) != -1)
+	if (access(ar[0], F_OK) == -1)
 	{
-		stat(ar[0], &sb);
-		handle_child_process(ar[0], ar, av, cnt);
+		*status = 127;
+		not_found(av[0], cnt, ar[0]);
+	}
+	else
+	{
+		child_process(ar[0], ar, av, cnt, status);
 		return (1);
 	}
-
 	return (0);
 }
 
 /**
  * prompt - desc
+ *
  * Return: void
  */
 void prompt(void)
@@ -55,18 +61,22 @@ void prompt(void)
 
 /**
  * get_input - desc
- * Return: Input string
+ * @status: ...
+ *
+ * Return: Valid string inserted by the user
+ * Otherwise, NULL
  */
-char *get_input(void)
+char *get_input(int status)
 {
 	char *line = NULL;
 	ssize_t n;
 	size_t size = 0;
+	int st = status;
 
 	n = getline(&line, &size, stdin);
 	if (line == NULL)
 	{
-		perror("Error allocating memory for buffer");
+		perror("Error allocating memory");
 		return (0);
 	}
 	else if (n == 1)
@@ -79,7 +89,7 @@ char *get_input(void)
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "\n", 1);
 		free(line);
-		exit(0);
+		exit(st);
 	}
 	else if (only_special_characters(line) == 1)
 	{
@@ -93,16 +103,20 @@ char *get_input(void)
 /**
  * compare_builtins - desc
  * @ar: ...
- * @count: ...
+ * @av: ...
+ * @cnt: ...
+ * @status: ...
  *
  * Return: 1 (Find a success compare)
  * -1 for error message printed,
- * Otherwise 0
+ * Otherwise, 0
  */
-int compare_builtins(char **ar)
+int compare_builtins(char **ar, char **av, int cnt, int *status)
 {
-	if (write_exit(ar) == -1)
+	if (write_exit(ar, status) == -1)
 	{
+		*status = 2;
+		ext_err(av[0], cnt, ar);
 		return (-1);
 	}
 
@@ -116,28 +130,38 @@ int compare_builtins(char **ar)
 }
 
 /**
- * handle_child_process - desc
+ * child_process - desc
  * @first: ...
  * @ar: ...
  * @av: ...
  * @cnt: ...
- * Return: 1 (Success). It fails -1
+ * @status: ...
+ * Return: 0 (Success)
+ * Otherwise, 1
  */
-int handle_child_process(char *first, char **ar, char **av, int cnt)
+int child_process(char *first, char **ar, char **av, int cnt, int *status)
 {
 	pid_t pid;
-	int sig = 0;
+	int sig, exit_status, res;
 
 	if (ar == NULL)
-		return (-1);
+		return (1);
 
 	pid = fork();
-	if (pid == 0)
+	if (pid < 0)
 	{
-		if (execve(first, ar, environ) == -1)
+		perror(av[0]);
+		return (1);
+	}
+	else if (pid == 0)
+	{
+		res = execve(first, ar, environ);
+		if (res == -1)
 		{
 			print_error(av[0], cnt, ar[0]);
-			return (-1);
+			free_ar(ar);
+			*status = 126;
+			exit(*status);
 		}
 		if (ar)
 			free_ar(ar);
@@ -145,8 +169,14 @@ int handle_child_process(char *first, char **ar, char **av, int cnt)
 	}
 	else
 	{
-		wait(&sig);
+		waitpid(pid, &sig, WUNTRACED);
+
+		if (WIFEXITED(sig))
+		{
+			exit_status = WEXITSTATUS(sig);
+			*status = exit_status;
+		}
 	}
 
-	return (1);
+	return (0);
 }
