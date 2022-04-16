@@ -76,7 +76,6 @@ char *get_paths_of_env_var(char *env)
 
 	if (environ == NULL || *(environ) == NULL || env == NULL)
 		return (NULL);
-
 	envline = _calloc(1024, sizeof(char));
 	if (envline == NULL)
 		return (NULL);
@@ -86,7 +85,6 @@ char *get_paths_of_env_var(char *env)
 		free(envline);
 		return (NULL);
 	}
-
 	for (i = 0; *(environ + i); i++)
 	{
 		if (_strncmp(*(environ + i), env, _strlen(env)) == 0)
@@ -95,18 +93,21 @@ char *get_paths_of_env_var(char *env)
 			break;
 		}
 	}
-	if (*(envline) != '\0')
-	{
-		for (i = 0; i < (_strlen(env)); i++)
-			;
-		_strcpy(envpath, envline + i);
-	}
-	else
+	if (*(envline) == '\0')
 	{
 		free(envline);
 		free(envpath);
 		return (NULL);
 	}
+	for (i = 0; i < (_strlen(env)); i++)
+		;
+	if (*(envline + i) == '\0')
+	{
+		free(envline);
+		free(envpath);
+		return (NULL);
+	}
+	_strcpy(envpath, envline + i);
 	free(envline);
 	return (envpath);
 }
