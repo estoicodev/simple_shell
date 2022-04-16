@@ -43,13 +43,13 @@ int _setenv(char **ar)
 			return (-1);
 		environ = new_environ_with_new_var(new_var);
 		if (environ == NULL)
-		{
-			free(new_var);
 			return (-1);
-		}
 	}
 	else
+	{
+		free(environ[index]);
 		*(environ + index) = create_new_var_env(ar[1], ar[2]);
+	}
 
 	return (1);
 }

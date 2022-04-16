@@ -85,10 +85,10 @@ int write_setenv(char **ar, char **av, int cnt, int *status)
 		if (ar[2] == NULL)
 			return (1);
 
-		if (ar[3] != NULL || _setenv(ar) == -1)
+		if (ar[3] != NULL || setenv(ar[1], ar[2], 1) == -1)
 		{
 			*status = 2;
-			error_setenv(av[0], cnt, ar);
+			error_set_unset_env(av[0], cnt, ar);
 			return (-1);
 		}
 
@@ -116,10 +116,10 @@ int write_unsetenv(char **ar, char **av, int cnt, int *status)
 		if (ar[1] == NULL)
 			return (1);
 
-		if (ar[2] != NULL || _unsetenv(ar) == -1)
+		if (ar[2] != NULL || unsetenv(ar[1]) == -1)
 		{
 			*status = 2;
-			error_unsetenv(av[0], cnt, ar);
+			error_set_unset_env(av[0], cnt, ar);
 			return (-1);
 		}
 

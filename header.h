@@ -65,6 +65,6 @@ int print_error(char *programm, int count, char *command);
 int not_found(char *programm, int count, char *command);
 int ext_err(char *programm, int count, char **ar);
 int error_unsetenv(char *programm, int count, char **ar);
-int error_setenv(char *programm, int count, char **ar);
+int error_set_unset_env(char *programm, int count, char **ar);
 
 #endif
