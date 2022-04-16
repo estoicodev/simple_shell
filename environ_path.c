@@ -16,7 +16,7 @@ char **get_PATHS(void)
 		return (NULL);
 
 	paths = tokenizer(path, delim);
-	if (paths == NULL)
+	if (paths == NULL || *(paths) == NULL)
 		return (NULL);
 
 	while (*(paths + i))
@@ -74,17 +74,13 @@ char *get_paths_of_env_var(char *env)
 	int i;
 	char *envline, *envpath;
 
-	if (environ == NULL || *(environ) == NULL)
+	if (environ == NULL || *(environ) == NULL || env == NULL)
 		return (NULL);
 
-	if (env == NULL)
-		return (NULL);
-
-	envline = malloc(1024);
+	envline = _calloc(1024, sizeof(char));
 	if (envline == NULL)
 		return (NULL);
-
-	envpath = malloc(1024);
+	envpath = _calloc(1024, sizeof(char));
 	if (envpath == NULL)
 	{
 		free(envline);
@@ -99,14 +95,18 @@ char *get_paths_of_env_var(char *env)
 			break;
 		}
 	}
-	if (envline != NULL)
+	if (*(envline) != '\0')
 	{
-		for (i = 0; i < (_strlen(env) + 1); i++)
+		for (i = 0; i < (_strlen(env)); i++)
 			;
 		_strcpy(envpath, envline + i);
-
-		free(envline);
 	}
-
+	else
+	{
+		free(envline);
+		free(envpath);
+		return (NULL);
+	}
+	free(envline);
 	return (envpath);
 }
