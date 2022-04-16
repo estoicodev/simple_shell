@@ -32,8 +32,6 @@ int main(int ac __attribute__ ((unused)), char *av[])
 		if (write_a_builtin(ar[0]) == 0)
 		{
 			paths = get_PATHS();
-			if (paths == NULL)
-				continue;
 
 			validation(ar, paths, av, count, &status);
 

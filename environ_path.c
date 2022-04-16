@@ -11,7 +11,7 @@ char **get_PATHS(void)
 	char **aux, **paths, *path;
 	char delim[] = ":";
 
-	path = get_paths_of_env_var("PATH");
+	path = get_paths_of_env_var("PATH=");
 	if (path == NULL)
 		return (NULL);
 
@@ -46,10 +46,10 @@ char **foreach_concat(char **ar, char *src)
 	char **new_ar;
 	int size = 0, i = 0;
 
-	if (ar == NULL || src == NULL)
+	if (ar == NULL || *(ar) == NULL || src == NULL)
 		return (NULL);
 
-	for (size = 0; ar[size]; size++)
+	for (size = 0; *(ar + size); size++)
 		;
 
 	new_ar = _calloc(size + 1, sizeof(char *));
@@ -74,6 +74,9 @@ char *get_paths_of_env_var(char *env)
 	int i;
 	char *envline, *envpath;
 
+	if (environ == NULL || *(environ) == NULL)
+		return (NULL);
+
 	if (env == NULL)
 		return (NULL);
 
@@ -83,10 +86,10 @@ char *get_paths_of_env_var(char *env)
 
 	envpath = malloc(1024);
 	if (envpath == NULL)
+	{
+		free(envline);
 		return (NULL);
-
-	if (environ == NULL)
-		return (NULL);
+	}
 
 	for (i = 0; *(environ + i); i++)
 	{

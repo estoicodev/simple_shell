@@ -15,7 +15,7 @@ int validation(char **ar, char **paths, char **av, int cnt, int *status)
 	int i;
 	char *abspath;
 
-	if (paths)
+	if (paths && *(paths))
 	{
 		for (i = 0; paths[i] != NULL; i++)
 		{
