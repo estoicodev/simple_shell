@@ -121,23 +121,3 @@ int is_valid_number(char *str)
 
 	return (1);
 }
-
-/**
-int main(void)
-{
-	int nb, i;
-	char *str = "98";
-
-	if (is_valid_number(str) == 1)
-	{
-		nb = _atoi(str);
-		printf("%d\n", nb);
-	}
-	else
-	{
-		printf("./hsh: 1: exit: Illegal number: %s\n", str);
-	}
-
-		return (0);
-}
-*/

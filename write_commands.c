@@ -1,7 +1,7 @@
 #include "header.h"
 
 /**
- * only_special_characters - function
+ * write_a_builtin - function
  * @command: ...
  *
  * Return: 1 If the user write a builtin
@@ -67,12 +67,15 @@ int write_exit(char **ar, int *status)
 /**
  * write_setenv - Find if user enter 'exit' to go out of the shell
  * @ar: ...
+ * @av: ...
+ * @cnt: ...
+ * @status: ...
  *
  * Return: 1 If setenv is printed
  * If not, 0
  * If an error occurs -1
  */
-int write_setenv(char **ar)
+int write_setenv(char **ar, char **av, int cnt, int *status)
 {
 	if (_strcmp(ar[0], "setenv") == 0 && _strlen(ar[0]) == 6)
 	{
@@ -82,11 +85,12 @@ int write_setenv(char **ar)
 		if (ar[2] == NULL)
 			return (1);
 
-		if (ar[3] != NULL)
+		if (ar[3] != NULL || _setenv(ar) == -1)
+		{
+			*status = 2;
+			error_setenv(av[0], cnt, ar);
 			return (-1);
-
-		if (_setenv(ar) == -1)
-			return (-1);
+		}
 
 		return (1);
 	}
@@ -97,23 +101,27 @@ int write_setenv(char **ar)
 /**
  * write_unsetenv - Find if user enter 'exit' to go out of the shell
  * @ar: ...
+ * @av: ...
+ * @cnt: ...
+ * @status: ...
  *
  * Return: 1 If setenv is printed with all arguments
  * If not, 0
  * If an error occurs -1
  */
-int write_unsetenv(char **ar)
+int write_unsetenv(char **ar, char **av, int cnt, int *status)
 {
 	if (_strcmp(ar[0], "unsetenv") == 0 && _strlen(ar[0]) == 8)
 	{
 		if (ar[1] == NULL)
 			return (1);
 
-		if (ar[2] != NULL)
+		if (ar[2] != NULL || _unsetenv(ar) == -1)
+		{
+			*status = 2;
+			error_unsetenv(av[0], cnt, ar);
 			return (-1);
-
-		if (_unsetenv(ar) == -1)
-			return (-1);
+		}
 
 		return (1);
 	}

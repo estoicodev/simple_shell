@@ -76,7 +76,7 @@ int ext_err(char *programm, int count, char **ar)
 }
 
 /**
- * ext_err - prints the error output of an illegal number of exit
+ * error_unsetenv - prints the error output of an illegal number of exit
  * @programm: name of the program
  * @count: number of prompt
  * @ar: Array of tokens inserted by the user
@@ -104,7 +104,7 @@ int error_unsetenv(char *programm, int count, char **ar)
 }
 
 /**
- * ext_err - prints the error output of an illegal number of exit
+ * error_setenv - prints the error output of an illegal number of exit
  * @programm: name of the program
  * @count: number of prompt
  * @ar: Array of tokens inserted by the user

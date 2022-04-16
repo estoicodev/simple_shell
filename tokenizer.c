@@ -58,35 +58,3 @@ char **tokenizer(char *str, char *delim)
 
 	return (tokens);
 }
-
-/**
-int main(void)
-{
-	char delim[] = " \t";
-	char **ar;
-	int i = 0, size = 0;
-	char str[] = " \tholacomo\t mellamomauricio dewf we wew";
-
-	printf("Line: \"%s\"\n", str);
-	printf("Len: %d\n", _strlen(str));
-	printf("Delimiter: \"%s\"\n", delim);
-	printf("-----------------\n");
-
-	size = count_tokens(str, delim);
-
-	ar = tokenizer(str, delim);
-
-	printf("ar[0] = %s\n", ar[0]);
-	printf("Address = %p\n", ar[0]);
-	printf("str = %s\n", str);
-	printf("Address = %p\n", str);
-
-	if (!ar)
-		return (1);
-
-	print_ar(ar);
-	free_ar(ar);
-
-	return (0);
-}
-*/
