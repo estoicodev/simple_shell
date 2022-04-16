@@ -67,4 +67,7 @@ int ext_err(char *programm, int count, char **ar);
 int error_unsetenv(char *programm, int count, char **ar);
 int error_set_unset_env(char *programm, int count, char **ar);
 
+/* Temporal */
+void print_ar(char **ar);
+
 #endif

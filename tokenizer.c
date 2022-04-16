@@ -11,9 +11,13 @@
 int count_tokens(char *str, char *delim)
 {
 	int i = 0;
-	char *copy = _strdup(str);
-	char *token = strtok(copy, delim);
+	char *copy, *token;
 
+	if (str == NULL || delim == NULL)
+		return (-1);
+
+	copy = _strdup(str);
+	token = strtok(copy, delim);
 	while (token != NULL)
 	{
 		i++;
@@ -39,13 +43,21 @@ char **tokenizer(char *str, char *delim)
 	int size = 0, i = 0;
 	char **tokens, *aux;
 
+	if (str == NULL || delim == NULL)
+		return (NULL);
+
 	size = count_tokens(str, delim);
+	if (size == -1)
+		return (NULL);
 
 	tokens = _calloc(size + 1, sizeof(char *));
 	if (tokens == NULL)
 		return (NULL);
 
 	aux = strtok(str, delim);
+	if (aux == NULL)
+		return (NULL);
+
 	while (aux != NULL)
 	{
 		tokens[i] = str_concat(aux, "");

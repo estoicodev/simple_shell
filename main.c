@@ -24,11 +24,17 @@ int main(int ac __attribute__ ((unused)), char *av[])
 		}
 
 		ar = tokenizer(line, " \t\n");
+		if (ar == NULL)
+			continue;
+
 		compare_builtins(ar, av, count, &status);
 
 		if (write_a_builtin(ar[0]) == 0)
 		{
 			paths = get_PATHS();
+			if (paths == NULL)
+				continue;
+
 			validation(ar, paths, av, count, &status);
 
 			free_ar(paths);
