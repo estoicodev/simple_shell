@@ -1,37 +1,4 @@
 #include "header.h"
-/**
- * _getenv - get list of the path(s) of environment variable
- * @env: Environment variable
- *
- * Return: New string of the path(s) of environment variable
- * Otherwise NULL
- */
-char *_getenv(char *env)
-{
-	int i;
-	char *envline = malloc(1024);
-	char *envpath = malloc(1024);
-
-	for (i = 0; *(environ + i); i++)
-	{
-		if (_strncmp(*(environ + i), env, _strlen(env)) == 0)
-		{
-			_strcpy(envline, *(environ + i));
-			break;
-		}
-	}
-	if (envline != NULL)
-	{
-		for (i = 0; i < (_strlen(env) + 1); i++)
-			;
-		_strcpy(envpath, envline + i);
-
-		free(envline);
-	}
-
-
-	return (envpath);
-}
 
 /**
  * get_PATHS - Get and tokenizes PATHS
@@ -43,7 +10,7 @@ char **get_PATHS(void)
 	int i = 0, size = 0;
 	char **aux;
 	char **paths;
-	char *path = _getenv("PATH");
+	char *path = get_paths_of_env_var("PATH");
 	char delim[] = ":";
 
 	paths = tokenizer(path, delim);
@@ -124,3 +91,37 @@ int main(void)
 	return (0);
 }
 */
+
+/**
+ * get_paths_of_env_var - get list of the path(s) of environment variable
+ * @env: Environment variable
+ *
+ * Return: New string of the path(s) of environment variable
+ * Otherwise NULL
+ */
+char *get_paths_of_env_var(char *env)
+{
+        int i;
+        char *envline = malloc(1024);
+        char *envpath = malloc(1024);
+
+        for (i = 0; *(environ + i); i++)
+        {
+                if (_strncmp(*(environ + i), env, _strlen(env)) == 0)
+                {
+                        _strcpy(envline, *(environ + i));
+                        break;
+                }
+        }
+        if (envline != NULL)
+        {
+                for (i = 0; i < (_strlen(env) + 1); i++)
+                        ;
+                _strcpy(envpath, envline + i);
+
+                free(envline);
+        }
+
+
+        return (envpath);
+}

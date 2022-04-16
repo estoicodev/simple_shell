@@ -26,7 +26,7 @@ int main(int ac __attribute__ ((unused)), char *av[])
 		ar = tokenizer(line, " \t\n");
 		compare_builtins(ar, av, count, &status);
 
-		if (_strcmp(ar[0], "env") != 0 && _strcmp(ar[0], "exit") != 0)
+		if (write_a_builtin(ar[0]) == 0)
 		{
 			paths = get_PATHS();
 			validation(ar, paths, av, count, &status);

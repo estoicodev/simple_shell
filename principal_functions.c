@@ -113,6 +113,8 @@ char *get_input(int status)
  */
 int compare_builtins(char **ar, char **av, int cnt, int *status)
 {
+	int sig_unsetenv, sig_setenv;
+
 	if (write_exit(ar, status) == -1)
 	{
 		*status = 2;
@@ -122,8 +124,35 @@ int compare_builtins(char **ar, char **av, int cnt, int *status)
 
 	if (_strcmp(ar[0], "env") == 0 && _strlen(ar[0]) == 3)
 	{
+		*status = 0;
 		fprintenv(environ);
 		return (1);
+	}
+
+	sig_setenv = write_setenv(ar);
+	if (sig_setenv == 1)
+	{
+		*status = 0;
+		return (1);
+	}
+	else if (sig_setenv == -1)
+	{
+		*status = 2;
+		error_setenv(av[0], cnt, ar);
+		return (-1);
+	}
+
+	sig_unsetenv = write_unsetenv(ar);
+	if (sig_unsetenv == 1)
+	{
+		*status = 0;
+		return (1);
+	}
+	else if (sig_unsetenv == -1)
+	{
+		*status = 2;
+		error_unsetenv(av[0], cnt, ar);
+		return (-1);
 	}
 
 	return (0);
