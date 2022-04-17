@@ -10,21 +10,15 @@
 int write_a_builtin(char *command)
 {
 	if (_strcmp(command, "exit") == 0 && _strlen(command) == 4)
-	{
 		return (1);
-	}
-	if (_strcmp(command, "env") == 0 && _strlen(command) == 3)
-	{
+	else if (_strcmp(command, "env") == 0 && _strlen(command) == 3)
 		return (1);
-	}
-	if (_strcmp(command, "setenv") == 0 && _strlen(command) == 6)
-	{
+	else if (_strcmp(command, "setenv") == 0 && _strlen(command) == 6)
 		return (1);
-	}
-	if (_strcmp(command, "unsetenv") == 0 && _strlen(command) == 8)
-	{
+	else if (_strcmp(command, "unsetenv") == 0 && _strlen(command) == 8)
 		return (1);
-	}
+	else if (_strcmp(command, "cd") == 0 && _strlen(command) == 2)
+		return (1);
 
 	return (0);
 }

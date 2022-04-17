@@ -1,57 +1,24 @@
 #include "header.h"
 
 /**
- * new_environ_with_new_var - Search the environment variable
- * @new_var: Environment variable
- *
- * Return: Line number of the environment variable
- * -1 - If doesn't exist
- */
-char **new_environ_with_new_var(char *new_var)
-{
-	int size, new_size, aux_size, i;
-	char *aux, **new_environ;
-
-	if (environ)
-		for (size = 0; *(environ + size); size++)
-			;
-
-	new_size = size + 1;
-	new_environ = _calloc(new_size + 1, sizeof(char *));
-	if (new_environ == NULL)
-		return (NULL);
-
-	for (i = 0; i < size; i++)
-	{
-		aux_size = _strlen(*(environ + i));
-		aux = _calloc(aux_size + 1, sizeof(char));
-		if (aux == NULL)
-			free_ar(new_environ);
-
-		_strcpy(aux, *(environ + i));
-		*(new_environ + i) = aux;
-	}
-
-	/* Add the new var */
-	*(new_environ + i) = new_var;
-
-	return (new_environ);
-}
-
-/**
  * index_var_env - Search the environment variable
  * @var_env: Environment variable
  *
  * Return: The index of the environment variable
- * -1 - If doesn't exist the environment variable
- * -2 - If environ is empty;
+ * -1 - If an error occurs:
+ * If the environment variable doesn't exist
+ * If the environ is empty
+ * If the var_env is NULL
  */
 int index_var_env(char *var_env)
 {
 	int i, size_var;
 
-	if (!var_env)
-		return (-2);
+	if (*(environ) == NULL)
+		return (-1);
+
+	if (var_env == NULL)
+		return (-1);
 
 	size_var = _strlen(var_env);
 
@@ -65,17 +32,18 @@ int index_var_env(char *var_env)
 }
 
 /**
- * getenv_var - Get a pointer to the environment variable
+ * _getenv - Get a pointer to the environment variable
  * @var_env: Environment variable
  *
  * Return: Pointer to the complete line of the environment variable
  * Otherwise NULL
  */
-char *getenv_var(char *var_env)
+char *_getenv(char *var_env)
 {
 	int i, size_var;
+	char *env;
 
-	if (!var_env)
+	if (!var_env || !*(environ))
 		return (NULL);
 
 	size_var = _strlen(var_env);
@@ -83,40 +51,38 @@ char *getenv_var(char *var_env)
 	for (i = 0; *(environ + i); i++)
 	{
 		if (_strncmp(*(environ + i), var_env, size_var) == 0)
-			return (*(environ + i));
+		{
+			env = *(environ + i);
+			if (*(env + size_var) == '=')
+			{
+				return (*(environ + i));
+			}
+		}
 	}
 
 	return (NULL);
 }
 
 /**
- * create_new_var_env - get list of the path(s) of environment variable
+ * getenv_content - Get a pointer to the environment variable
  * @var_env: Environment variable
- * @var_content: Content of the variable
+ * @line_env: Complete line of environment variable
+ * Format: VARIABLE=content
  *
- * Return: New string with the content of the environment variable
- * format -> VARIABLE=content
+ * Return: Pointer to the content of the environment variable
  * Otherwise NULL
  */
-char *create_new_var_env(char *var_env, char *var_content)
+char *getenv_content(char *var_env, char *line_env)
 {
-	char separator[] = "=";
-	int size;
-	char *new_env;
+	int size_var;
 
-	if (var_env == NULL || var_content == NULL)
+	if (!var_env || !line_env)
 		return (NULL);
 
-	size = _strlen(var_env) + _strlen(separator) + _strlen(var_content);
+	size_var = _strlen(var_env);
 
-	new_env = _calloc(size + 1, sizeof(char));
+	if (*(line_env + size_var) == '=')
+		return (line_env + size_var + 1);
 
-	if (new_env == NULL)
-		return (NULL);
-
-	_strcpy(new_env, var_env);
-	_strcat(new_env, separator);
-	_strcat(new_env, var_content);
-
-	return (new_env);
+	return (NULL);
 }

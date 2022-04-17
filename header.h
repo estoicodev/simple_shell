@@ -28,6 +28,7 @@ int _atoi(char *s);
 void prompt(void);
 char *get_input(int status);
 int compare_builtins(char **ar, char **av, int cnt, int *status);
+int compare_builtins_2(char **ar, char **av, int cnt, int *status);
 int write_a_builtin(char *command);
 int validation(char **ar, char **paths, char **av, int cnt, int *status);
 int child_process(char *first, char **ar, char **av, int cnt, int *status);
@@ -37,10 +38,6 @@ void continue_programm(int sig);
 char **tokenizer(char *str, char *delim);
 int count_tokens(char *str, char *delim);
 int only_special_characters(char *command);
-int write_exit(char **ar, int *status);
-int write_env(char **ar);
-int write_setenv(char **ar, char **av, int cnt, int *status);
-int write_unsetenv(char **ar, char **av, int cnt, int *status);
 void free_ar(char **ar);
 char **foreach_concat(char **ar, char *src);
 int is_valid_number(char *str);
@@ -49,16 +46,25 @@ int is_valid_number(char *str);
 char *get_paths_of_env_var(char *env);
 char **get_PATHS(void);
 
-/* setenv y unsetenv*/
-int _setenv(char **ar);
-char *create_new_var_env(char *var_env, char *var_content);
-char **new_environ_with_new_var(char *new_var);
-char *getenv_var(char *var_env);
+/* Helper built-ins */
+char *_getenv(char *var_env);
+char *getenv_content(char *var_env, char *line_env);
 int index_var_env(char *var_env);
-int _unsetenv(char **ar);
+
+/* Built-in cd functions */
+int cmp_cd_only(char *str);
+int cmp_cd_dash(char *str);
+int go_to_dir(char *directory);
+char *go_to_home_directory(void);
+char *get_oldpwd(void);
 
 /* Built-ins */
 void fprintenv(char **env);
+int write_exit(char **ar, int *status);
+int write_env(char **ar);
+int write_setenv(char **ar, char **av, int cnt, int *status);
+int write_unsetenv(char **ar, char **av, int cnt, int *status);
+int write_cd(char **ar, char **av, int cnt);
 
 /* Handle Errors */
 int print_error(char *programm, int count, char *command);
@@ -66,6 +72,13 @@ int not_found(char *programm, int count, char *command);
 int ext_err(char *programm, int count, char **ar);
 int error_unsetenv(char *programm, int count, char **ar);
 int error_set_unset_env(char *programm, int count, char **ar);
+int error_cd(char *programm, int count, char **ar);
+
+/* Developing */
+char *create_new_var_env(char *var_env, char *var_content);
+char **new_environ_with_new_var(char *new_var);
+int _setenv(char **ar);
+int _unsetenv(char **ar);
 
 /* Temporal */
 void print_ar(char **ar);

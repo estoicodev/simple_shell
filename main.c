@@ -28,6 +28,7 @@ int main(int ac __attribute__ ((unused)), char *av[])
 			continue;
 
 		compare_builtins(ar, av, count, &status);
+		compare_builtins_2(ar, av, count, &status);
 
 		if (write_a_builtin(ar[0]) == 0)
 		{
