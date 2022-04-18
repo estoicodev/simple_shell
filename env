@@ -1,0 +1,9 @@
+env: env [NONE]
+
+       Display the environment variables
+
+Options:
+       No options
+
+Exit status:
+       Returns 0 if the environment variables are printed; non-zero otherwise

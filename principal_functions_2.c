@@ -13,7 +13,7 @@
  */
 int compare_builtins_2(char **ar, char **av, int cnt, int *status)
 {
-	int r_cd;
+	int r_cd, r_help;
 
 	r_cd = write_cd(ar, av, cnt);
 
@@ -23,6 +23,18 @@ int compare_builtins_2(char **ar, char **av, int cnt, int *status)
 		return (-1);
 	}
 	else if (r_cd == 1)
+	{
+		*status = 0;
+		return (1);
+	}
+
+	r_help = write_help(ar, av);
+	if (r_help == -1)
+	{
+		*status = 1;
+		return (-1);
+	}
+	else if (r_help == 1)
 	{
 		*status = 0;
 		return (1);

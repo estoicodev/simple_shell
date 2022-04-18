@@ -1,0 +1,12 @@
+setenv: setenv [PATH] [CONTENT]
+       Change or add an environment variable
+
+       The  setenv  command  adds the variable with the name PATH to the environment with the value CONTENT, if name does
+       not already exist.  If name does exist in the environment, then its value  is  changed  to  CONTENT
+
+Exit status:
+       Returns 0 is the environment was created or modified, otherwise, -1
+
+Errors:
+       If PATH is NULL, or contains an '=' character.
+       If we have insufficient memory to add a new variable to the environment.

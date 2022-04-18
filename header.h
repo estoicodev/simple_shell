@@ -7,6 +7,7 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <fcntl.h>
 
 extern char **environ;
 
@@ -50,6 +51,7 @@ char **get_PATHS(void);
 char *_getenv(char *var_env);
 char *getenv_content(char *var_env, char *line_env);
 int index_var_env(char *var_env);
+ssize_t read_textfile(const char *filename, size_t letters);
 
 /* Built-in cd functions */
 int cmp_cd_only(char *str);
@@ -65,6 +67,8 @@ int write_env(char **ar);
 int write_setenv(char **ar, char **av, int cnt, int *status);
 int write_unsetenv(char **ar, char **av, int cnt, int *status);
 int write_cd(char **ar, char **av, int cnt);
+int write_help(char **ar, char **av);
+int write_help_command(char *command);
 
 /* Handle Errors */
 int print_error(char *programm, int count, char *command);
@@ -73,6 +77,7 @@ int ext_err(char *programm, int count, char **ar);
 int error_unsetenv(char *programm, int count, char **ar);
 int error_set_unset_env(char *programm, int count, char **ar);
 int error_cd(char *programm, int count, char **ar);
+int help_not_found(char *programm, char **ar);
 
 /* Developing */
 char *create_new_var_env(char *var_env, char *var_content);

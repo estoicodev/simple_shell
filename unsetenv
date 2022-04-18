@@ -1,0 +1,11 @@
+unsetenv: unsetenv [PATH]
+       Change or add an environment variable
+
+       The  unsetenv  command  deletes the variable PATH from the environment.  If name does not exist in
+       the environment, then the function succeeds, and the environment is unchanged.
+
+Exit status:
+       The unsetenv function returns zero on success, or -1 on error.
+
+Errors:
+       If PATH is NULL, points to a string of length 0, or contains an '=' character.
