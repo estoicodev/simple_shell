@@ -30,7 +30,7 @@ void prompt(void);
 char *get_input(int status);
 int compare_builtins(char **ar, char **av, int cnt, int *status);
 int compare_builtins_2(char **ar, char **av, int cnt, int *status);
-int write_a_builtin(char *command);
+int write_builtins(char **ar);
 int validation(char **ar, char **paths, char **av, int cnt, int *status);
 int child_process(char *first, char **ar, char **av, int cnt, int *status);
 void continue_programm(int sig);
@@ -52,6 +52,8 @@ char *_getenv(char *var_env);
 char *getenv_content(char *var_env, char *line_env);
 int index_var_env(char *var_env);
 ssize_t read_textfile(const char *filename, size_t letters);
+char *find_var_env(char *var_env);
+int write_dollar_symbol(char *token, int status);
 
 /* Built-in cd functions */
 int cmp_cd_only(char *str);
@@ -69,6 +71,7 @@ int write_unsetenv(char **ar, char **av, int cnt, int *status);
 int write_cd(char **ar, char **av, int cnt);
 int write_help(char **ar, char **av);
 int write_help_command(char *command);
+int compare_dollar(char **ar, int status);
 
 /* Handle Errors */
 int print_error(char *programm, int count, char *command);

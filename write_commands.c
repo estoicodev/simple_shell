@@ -1,25 +1,25 @@
 #include "header.h"
 
 /**
- * write_a_builtin - function
- * @command: ...
+ * write_builtins - function
+ * @ar: Array of tokens
  *
  * Return: 1 If the user write a builtin
  * Otherwise 0
  */
-int write_a_builtin(char *command)
+int write_builtins(char **ar)
 {
-	if (_strcmp(command, "exit") == 0 && _strlen(command) == 4)
+	if (_strcmp(ar[0], "exit") == 0 && _strlen(ar[0]) == 4)
 		return (1);
-	else if (_strcmp(command, "env") == 0 && _strlen(command) == 3)
+	else if (_strcmp(ar[0], "env") == 0 && _strlen(ar[0]) == 3)
 		return (1);
-	else if (_strcmp(command, "setenv") == 0 && _strlen(command) == 6)
+	else if (_strcmp(ar[0], "setenv") == 0 && _strlen(ar[0]) == 6)
 		return (1);
-	else if (_strcmp(command, "unsetenv") == 0 && _strlen(command) == 8)
+	else if (_strcmp(ar[0], "unsetenv") == 0 && _strlen(ar[0]) == 8)
 		return (1);
-	else if (_strcmp(command, "cd") == 0 && _strlen(command) == 2)
+	else if (_strcmp(ar[0], "cd") == 0 && _strlen(ar[0]) == 2)
 		return (1);
-	else if (_strcmp(command, "help") == 0 && _strlen(command) == 4)
+	else if (_strcmp(ar[0], "help") == 0 && _strlen(ar[0]) == 4)
 		return (1);
 
 	return (0);

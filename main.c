@@ -27,15 +27,14 @@ int main(int ac __attribute__ ((unused)), char *av[])
 		if (ar == NULL)
 			continue;
 
+		compare_dollar(ar, status);
 		compare_builtins(ar, av, count, &status);
 		compare_builtins_2(ar, av, count, &status);
 
-		if (write_a_builtin(ar[0]) == 0)
+		if (write_builtins(ar) == 0)
 		{
 			paths = get_PATHS();
-
 			validation(ar, paths, av, count, &status);
-
 			free_ar(paths);
 		}
 		count++;

@@ -43,7 +43,7 @@ char *_getenv(char *var_env)
 	int i, size_var;
 	char *env;
 
-	if (!var_env || !*(environ))
+	if (!var_env || !*(environ) || !environ)
 		return (NULL);
 
 	size_var = _strlen(var_env);

@@ -60,7 +60,11 @@ char **tokenizer(char *str, char *delim)
 
 	while (aux != NULL)
 	{
-		tokens[i] = str_concat(aux, "");
+		*(tokens + i) = _calloc(1024, sizeof(char));
+		_strcpy(*(tokens + i), aux);
+		/**
+		*(tokens + i) = str_concat(aux, "");
+		*/
 		aux = strtok(NULL, delim);
 		i++;
 	}
